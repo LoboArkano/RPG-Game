@@ -1,0 +1,27 @@
+{
+  "name": "rpg-game",
+  "version": "1.0.0",
+  "description": "RPG videogame build it with Phaser 3",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LoboArkano/RPG-Game.git"
+  },
+  "keywords": [
+    "rpg"
+  ],
+  "author": "Roberto Perez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LoboArkano/RPG-Game/issues"
+  },
+  "homepage": "https://github.com/LoboArkano/RPG-Game#readme",
+  "devDependencies": {
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
+  }
+}
