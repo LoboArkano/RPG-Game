@@ -10,7 +10,7 @@ const game = (() => {
     height: 480,
     pixelArt: true,
     physics: {
-      defualt: 'arcade',
+      default: 'arcade',
       arcade: {
         gravity: { y: 0 },
       },
