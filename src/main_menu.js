@@ -1,4 +1,3 @@
-import Phaser from 'phaser';
 import book from './assets/images/title/Book.png';
 
 class mainMenu extends Phaser.Scene {
