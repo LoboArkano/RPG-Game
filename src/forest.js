@@ -3,6 +3,9 @@ import outsideB from './assets/images/tileset/Outside_B.png';
 import mapJSON from './assets/images/maps/testMap.json';
 import actor from './assets/images/characters/Protas.png';
 
+let direction = 'standDown';
+let player;
+let spawns;
 class forest extends Phaser.Scene {
   constructor() {
     super({ key: 'forest' });
@@ -20,18 +23,23 @@ class forest extends Phaser.Scene {
     const outsideA2Set = mappy.addTilesetImage('Outside_A2');
     const outsideBSet = mappy.addTilesetImage('Outside_B');
 
-    const soilLayer = mappy.createStaticLayer('soil', outsideA2Set, 0, 0).setDepth(-2);
-    const plantsLayer = mappy.createStaticLayer('plants', outsideBSet, 0, 0).setDepth(-1);
-    const objectsLayer = mappy.createStaticLayer('objects', outsideBSet, 0, 0).setDepth(1);
+    mappy.createStaticLayer('soil', outsideA2Set, 0, 0).setDepth(-2);
+    mappy.createStaticLayer('plants', outsideBSet, 0, 0).setDepth(-1);
+    const objectsLayer = mappy.createStaticLayer('objects', outsideBSet, 0, 0);
 
-    objectsLayer.setCollisionByProperty({ collides: true });
-    this.player = this.physics.add.sprite(480, 400, 'actor');
+    player = this.physics.add.sprite(480, 400, 'actor');
+    // objectsLayer.setCollisionByProperty({ collides: true });
+    // objectsLayer.setCollisionByExclusion([-1]);
+    // objectsLayer.setCollision([338, 373, 389, 417, 418, 419, 420, 433, 434, 435, 436]);
+    // this.physics.add.collider(player, objectsLayer);
 
     this.physics.world.bounds.width = mappy.widthInPixels;
     this.physics.world.bounds.height = mappy.heightInPixels;
-    this.player.setCollideWorldBounds(true);
-    this.physics.add.collider(this.player, objectsLayer);
-    this.cameras.main.startFollow(this.player);
+    player.setCollideWorldBounds(true);
+
+    this.cameras.main.setBounds(0, 0, mappy.widthInPixels, mappy.heightInPixels);
+    this.cameras.main.startFollow(player);
+    this.cameras.main.roundPixels = true;
 
     this.anims.create({
       key: 'standDown',
@@ -86,33 +94,49 @@ class forest extends Phaser.Scene {
     });
 
     this.keyboard = this.input.keyboard.addKeys('W,A,S,D');
+    spawns = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
+    for (let i = 0; i < 25; i += 1) {
+      const x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
+      const y = Phaser.Math.RND.between(0, this.physics.world.bounds.height) - 100;
+      // parameters are x, y, width, height
+      spawns.create(x, y, 30, 30);
+    }
+    this.physics.add.overlap(player, spawns, this.onMeetEnemy());
   }
 
   update() {
-    this.direction = 'standDown';
     if (this.keyboard.A.isDown) {
       // Left
-      this.player.x -= 5;
-      this.player.anims.play('left', true);
-      this.direction = 'standLeft';
+      player.x -= 5;
+      player.anims.play('left', true);
+      direction = 'standLeft';
     } else if (this.keyboard.D.isDown) {
       // Right
-      this.player.x += 5;
-      this.player.anims.play('right', true);
-      this.direction = 'standRight';
+      player.x += 5;
+      player.anims.play('right', true);
+      direction = 'standRight';
     } else if (this.keyboard.W.isDown) {
       // Up
-      this.player.y -= 5;
-      this.player.anims.play('up', true);
-      this.direction = 'standUp';
+      player.y -= 5;
+      player.anims.play('up', true);
+      direction = 'standUp';
     } else if (this.keyboard.S.isDown) {
       // Down
-      this.player.y += 5;
-      this.player.anims.play('down', true);
-      this.direction = 'standDown';
+      player.y += 5;
+      player.anims.play('down', true);
+      direction = 'standDown';
     } else {
-      this.player.anims.play(this.direction);
+      player.anims.play(direction);
     }
+  }
+
+  onMeetEnemy() {
+    // we move the zone to some other location
+
+    // shake the world
+    this.cameras.main.flash(200);
+    console.log('Fight!!!');
+    // start battle
   }
 }
 
