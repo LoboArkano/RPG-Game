@@ -1,3 +1,4 @@
+import Phaser from 'phaser';
 import outsideA2 from './assets/images/tileset/Outside_A2.png';
 import outsideB from './assets/images/tileset/Outside_B.png';
 import mapJSON from './assets/images/maps/testMap.json';
@@ -99,9 +100,18 @@ class forest extends Phaser.Scene {
       const x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
       const y = Phaser.Math.RND.between(0, this.physics.world.bounds.height) - 100;
       // parameters are x, y, width, height
-      spawns.create(x, y, 30, 30);
+      spawns.create(x, y, 48, 48);
     }
-    this.physics.add.overlap(player, spawns, this.onMeetEnemy());
+    this.physics.add.overlap(player, spawns, this.onMeetEnemy, false, this);
+  }
+
+  onMeetEnemy(player, zone) {
+    // we move the zone to some other location
+    zone.x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
+    zone.y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
+    // shake the world
+    this.cameras.main.flash(200);
+    // start battle
   }
 
   update() {
@@ -128,15 +138,6 @@ class forest extends Phaser.Scene {
     } else {
       player.anims.play(direction);
     }
-  }
-
-  onMeetEnemy() {
-    // we move the zone to some other location
-
-    // shake the world
-    this.cameras.main.flash(200);
-    console.log('Fight!!!');
-    // start battle
   }
 }
 
