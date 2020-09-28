@@ -1,12 +1,13 @@
 import Phaser from 'phaser';
 import outsideA2 from './assets/images/tileset/Outside_A2.png';
 import outsideB from './assets/images/tileset/Outside_B.png';
-import mapJSON from './assets/images/maps/testMap.json';
+import mapForest from './assets/images/maps/testMap.json';
 import actor from './assets/images/characters/Protas.png';
 
 let direction = 'standDown';
 let player;
 let spawns;
+let overlapCollider;
 class forest extends Phaser.Scene {
   constructor() {
     super({ key: 'forest' });
@@ -15,7 +16,7 @@ class forest extends Phaser.Scene {
   preload() {
     this.load.image('Outside_A2', outsideA2);
     this.load.image('Outside_B', outsideB);
-    this.load.tilemapTiledJSON('mappy', mapJSON);
+    this.load.tilemapTiledJSON('mappy', mapForest);
     this.load.spritesheet('actor', actor, { frameWidth: 48, frameHeight: 48 });
   }
 
@@ -27,12 +28,11 @@ class forest extends Phaser.Scene {
     mappy.createStaticLayer('soil', outsideA2Set, 0, 0).setDepth(-2);
     mappy.createStaticLayer('plants', outsideBSet, 0, 0).setDepth(-1);
     const objectsLayer = mappy.createStaticLayer('objects', outsideBSet, 0, 0);
-
     player = this.physics.add.sprite(480, 400, 'actor');
+    this.physics.add.collider(player, objectsLayer);
     // objectsLayer.setCollisionByProperty({ collides: true });
     // objectsLayer.setCollisionByExclusion([-1]);
-    // objectsLayer.setCollision([338, 373, 389, 417, 418, 419, 420, 433, 434, 435, 436]);
-    // this.physics.add.collider(player, objectsLayer);
+    objectsLayer.setCollision([145, 180, 196, 224, 225, 226, 227, 240, 241, 242, 243]);
 
     this.physics.world.bounds.width = mappy.widthInPixels;
     this.physics.world.bounds.height = mappy.heightInPixels;
@@ -95,6 +95,7 @@ class forest extends Phaser.Scene {
     });
 
     this.keyboard = this.input.keyboard.addKeys('W,A,S,D');
+
     spawns = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
     for (let i = 0; i < 25; i += 1) {
       const x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
@@ -103,12 +104,19 @@ class forest extends Phaser.Scene {
       spawns.create(x, y, 48, 48);
     }
     this.physics.add.overlap(player, spawns, this.onMeetEnemy, false, this);
+
+    this.exit = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
+    this.exit.create(552, 24, 48, 48);
+    overlapCollider = this.physics.add.collider(player, this.exit, () => {
+      this.physics.world.removeCollider(overlapCollider);
+      this.scene.start('world');
+    }, false, this);
   }
 
   onMeetEnemy(player, zone) {
     // we move the zone to some other location
-    zone.x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
-    zone.y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
+    zone.x = -48;
+    zone.y = -48;
     // shake the world
     this.cameras.main.flash(200);
     // start battle
