@@ -2,26 +2,27 @@ import Phaser from 'phaser';
 
 let direction = 'standDown';
 let player;
-let overlapDungeon;
-let overlapForest;
-let overlapTemple;
-let overlapTown;
+let overlapCollider;
 let spawns;
-class world extends Phaser.Scene {
+class dungeon extends Phaser.Scene {
   constructor() {
-    super({ key: 'world' });
+    super({ key: 'dungeon' });
   }
 
   create() {
-    const mappy = this.add.tilemap('mapWorld');
-    const worldA2Set = mappy.addTilesetImage('World_A2');
-    const worldBSet = mappy.addTilesetImage('World_B');
+    const mappy = this.add.tilemap('mapDungeon');
+    const dungeonA4Set = mappy.addTilesetImage('Dungeon_A4');
+    const dungeonA5Set = mappy.addTilesetImage('Dungeon_A5');
+    const dungeonCSet = mappy.addTilesetImage('Dungeon_C');
+    const OutsideBSet = mappy.addTilesetImage('Outside_B');
 
-    mappy.createStaticLayer('soil', worldA2Set, 0, 0).setDepth(-3);
-    const objectsLayer = mappy.createStaticLayer('objects', [worldA2Set, worldBSet], 0, 0).setDepth(-2);
-    mappy.createStaticLayer('locations', worldBSet, 0, 0).setDepth(-1);
+    mappy.createStaticLayer('soil', dungeonA4Set, 0, 0).setDepth(-3);
+    mappy.createStaticLayer('soilDeco', dungeonA5Set, 0, 0).setDepth(-2);
+    const objectsLayer = mappy.createStaticLayer('objects', [dungeonA4Set, dungeonA5Set, dungeonCSet, OutsideBSet], 0, 0).setDepth(1);
+    mappy.createStaticLayer('shadow', dungeonA5Set, 0, 0).setDepth(2);
+    mappy.createStaticLayer('decoration', [dungeonCSet, OutsideBSet], 0, 0).setDepth(3);
 
-    player = this.physics.add.sprite(936, 1174, 'actor');
+    player = this.physics.add.sprite(1536, 2928, 'actor');
     this.physics.add.collider(player, objectsLayer);
     // objectsLayer.setCollisionByProperty({ collides: true });
     objectsLayer.setCollisionByExclusion([-1]);
@@ -98,33 +99,12 @@ class world extends Phaser.Scene {
     }
     this.physics.add.overlap(player, spawns, this.onMeetEnemy, false, this);
 
-    this.dungeon = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
-    this.dungeon.create(792, 168, 48, 48);
-    overlapDungeon = this.physics.add.collider(player, this.dungeon, () => {
-      this.physics.world.removeCollider(overlapDungeon);
-      this.scene.start('dungeon');
-    }, false, this);
-
-    this.forest = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
-    this.forest.create(936, 1224, 48, 48);
-    overlapForest = this.physics.add.collider(player, this.forest, () => {
-      this.physics.world.removeCollider(overlapForest);
-      this.scene.start('forest');
-    }, false, this);
-
-    this.temple = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
-    this.temple.create(264, 504, 48, 48);
-    overlapTemple = this.physics.add.collider(player, this.temple, () => {
-      this.physics.world.removeCollider(overlapTemple);
-      this.scene.start('temple');
-    }, false, this);
-
-    this.town = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
-    this.town.create(648, 888, 48, 48);
-    this.town.create(696, 888, 48, 48);
-    overlapTown = this.physics.add.collider(player, this.town, () => {
-      this.physics.world.removeCollider(overlapTown);
-      this.scene.start('town');
+    this.exit = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
+    this.exit.create(1512, 3000, 48, 48);
+    this.exit.create(1560, 3000, 48, 48);
+    overlapCollider = this.physics.add.collider(player, this.exit, () => {
+      this.physics.world.removeCollider(overlapCollider);
+      this.scene.start('world');
     }, false, this);
   }
 
@@ -164,4 +144,4 @@ class world extends Phaser.Scene {
   }
 }
 
-export default world;
+export default dungeon;
