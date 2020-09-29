@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import boot from './boot';
 import mainMenu from './main_menu';
 import forest from './forest';
 import world from './world';
@@ -17,7 +18,7 @@ const game = (() => {
         debug: true,
       },
     },
-    scene: [mainMenu, forest, world],
+    scene: [boot, mainMenu, forest, world],
   };
 
   const rpgGame = new Phaser.Game(config);
