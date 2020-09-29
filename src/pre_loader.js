@@ -10,6 +10,8 @@ import door1 from './assets/images/object/Door1.png';
 import outsideA3 from './assets/images/tileset/Outside_A3.png';
 import outsideA5 from './assets/images/tileset/Outside_A5.png';
 import mapTown from './assets/images/maps/town.json';
+import insideC from './assets/images/tileset/Inside_C.png';
+import mapTemple from './assets/images/maps/temple.json';
 import actor from './assets/images/characters/Protas.png';
 
 class mainMenu extends Phaser.Scene {
@@ -22,6 +24,7 @@ class mainMenu extends Phaser.Scene {
 
     this.load.image('menu', menu);
     this.load.image('Door1', door1);
+    this.load.image('Inside_C', insideC);
     this.load.image('Outside_A2', outsideA2);
     this.load.image('Outside_A3', outsideA3);
     this.load.image('Outside_A5', outsideA5);
@@ -29,6 +32,7 @@ class mainMenu extends Phaser.Scene {
     this.load.image('World_A2', worldA2);
     this.load.image('World_B', worldB);
     this.load.tilemapTiledJSON('mapForest', mapForest);
+    this.load.tilemapTiledJSON('mapTemple', mapTemple);
     this.load.tilemapTiledJSON('mapTown', mapTown);
     this.load.tilemapTiledJSON('mapWorld', worldMap);
     this.load.spritesheet('actor', actor, { frameWidth: 48, frameHeight: 48 });

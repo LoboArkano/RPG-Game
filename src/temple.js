@@ -2,25 +2,25 @@ import Phaser from 'phaser';
 
 let direction = 'standDown';
 let player;
-let overlapForest;
-let overlapTemple;
-let overlapTown;
+let overlapCollider;
 let spawns;
-class world extends Phaser.Scene {
+class temple extends Phaser.Scene {
   constructor() {
-    super({ key: 'world' });
+    super({ key: 'temple' });
   }
 
   create() {
-    const mappy = this.add.tilemap('mapWorld');
-    const worldA2Set = mappy.addTilesetImage('World_A2');
-    const worldBSet = mappy.addTilesetImage('World_B');
+    const mappy = this.add.tilemap('mapTemple');
+    const insideCSet = mappy.addTilesetImage('Inside_C');
+    const OutsideA2Set = mappy.addTilesetImage('Outside_A2');
+    const OutsideA5Set = mappy.addTilesetImage('Outside_A5');
+    const OutsideBSet = mappy.addTilesetImage('Outside_B');
 
-    mappy.createStaticLayer('soil', worldA2Set, 0, 0).setDepth(-3);
-    const objectsLayer = mappy.createStaticLayer('objects', [worldA2Set, worldBSet], 0, 0).setDepth(-2);
-    const locationsLayer = mappy.createStaticLayer('locations', worldBSet, 0, 0).setDepth(-1);
+    mappy.createStaticLayer('soil', [OutsideA2Set, OutsideA5Set], 0, 0).setDepth(-3);
+    mappy.createStaticLayer('soilDeco', OutsideBSet, 0, 0).setDepth(-2);
+    const objectsLayer = mappy.createStaticLayer('objects', [insideCSet, OutsideBSet], 0, 0).setDepth(1);
 
-    player = this.physics.add.sprite(936, 1174, 'actor');
+    player = this.physics.add.sprite(552, 1110, 'actor');
     this.physics.add.collider(player, objectsLayer);
     // objectsLayer.setCollisionByProperty({ collides: true });
     objectsLayer.setCollisionByExclusion([-1]);
@@ -89,7 +89,7 @@ class world extends Phaser.Scene {
     this.keyboard = this.input.keyboard.addKeys('W,A,S,D');
 
     spawns = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
-    for (let i = 0; i < 35; i += 1) {
+    for (let i = 0; i < 20; i += 1) {
       const x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
       const y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
       // parameters are x, y, width, height
@@ -97,26 +97,11 @@ class world extends Phaser.Scene {
     }
     this.physics.add.overlap(player, spawns, this.onMeetEnemy, false, this);
 
-    this.forest = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
-    this.forest.create(936, 1224, 48, 48);
-    overlapForest = this.physics.add.collider(player, this.forest, () => {
-      this.physics.world.removeCollider(overlapForest);
-      this.scene.start('forest');
-    }, false, this);
-
-    this.temple = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
-    this.temple.create(264, 504, 48, 48);
-    overlapTemple = this.physics.add.collider(player, this.temple, () => {
-      this.physics.world.removeCollider(overlapTemple);
-      this.scene.start('temple');
-    }, false, this);
-
-    this.town = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
-    this.town.create(648, 888, 48, 48);
-    this.town.create(696, 888, 48, 48);
-    overlapTown = this.physics.add.collider(player, this.town, () => {
-      this.physics.world.removeCollider(overlapTown);
-      this.scene.start('town');
+    this.exit = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
+    this.exit.create(552, 1176, 48, 48);
+    overlapCollider = this.physics.add.collider(player, this.exit, () => {
+      this.physics.world.removeCollider(overlapCollider);
+      this.scene.start('world');
     }, false, this);
   }
 
@@ -156,4 +141,4 @@ class world extends Phaser.Scene {
   }
 }
 
-export default world;
+export default temple;
