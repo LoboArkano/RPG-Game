@@ -1,25 +1,16 @@
 import Phaser from 'phaser';
-import worldA2 from './assets/images/tileset/World_A2.png';
-import worldB from './assets/images/tileset/World_B.png';
-import mapWorld from './assets/images/maps/worldMap.json';
-import actor from './assets/images/characters/Protas.png';
 
 let direction = 'standDown';
 let player;
+let overlapCollider;
+let spawns;
 class forest extends Phaser.Scene {
   constructor() {
     super({ key: 'world' });
   }
 
-  preload() {
-    this.load.image('World_A2', worldA2);
-    this.load.image('World_B', worldB);
-    this.load.tilemapTiledJSON('mappyWorld', mapWorld);
-    this.load.spritesheet('actor', actor, { frameWidth: 48, frameHeight: 48 });
-  }
-
   create() {
-    const mappy = this.add.tilemap('mappyWorld');
+    const mappy = this.add.tilemap('mapWorld');
     const worldA2Set = mappy.addTilesetImage('World_A2');
     const worldBSet = mappy.addTilesetImage('World_B');
 
@@ -94,6 +85,31 @@ class forest extends Phaser.Scene {
     });
 
     this.keyboard = this.input.keyboard.addKeys('W,A,S,D');
+
+    spawns = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
+    for (let i = 0; i < 35; i += 1) {
+      const x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
+      const y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
+      // parameters are x, y, width, height
+      spawns.create(x, y, 48, 48);
+    }
+    this.physics.add.overlap(player, spawns, this.onMeetEnemy, false, this);
+
+    this.exit = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
+    this.exit.create(936, 1224, 48, 48);
+    overlapCollider = this.physics.add.collider(player, this.exit, () => {
+      this.physics.world.removeCollider(overlapCollider);
+      this.scene.start('forest');
+    }, false, this);
+  }
+
+  onMeetEnemy(player, zone) {
+    // we move the zone to some other location
+    zone.x = -48;
+    zone.y = -48;
+    // shake the world
+    this.cameras.main.flash(200);
+    // start battle
   }
 
   update() {

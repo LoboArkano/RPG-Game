@@ -1,16 +1,12 @@
-import book from './assets/images/title/Book.png';
+import Phaser from 'phaser';
 
 class mainMenu extends Phaser.Scene {
   constructor() {
     super({ key: 'mainMenu' });
   }
 
-  preload() {
-    this.load.image('mainMenu', book);
-  }
-
   create() {
-    this.image = this.add.image(480, 240, 'mainMenu');
+    this.image = this.add.image(480, 240, 'menu');
     this.title = this.add.text(400, 100, 'RPG GAME', { fontSize: '42px', fill: '#fff' });
     this.startBtn = this.add.text(400, 300, 'START', { fontSize: '30px', fill: '#fff' });
     const controlls = this.add.text(400, 350, 'CONTROLLS', { fontSize: '30px', fill: '#fff' });

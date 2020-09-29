@@ -11,7 +11,7 @@ class mainMenu extends Phaser.Scene {
   }
 
   create() {
-    this.scene.start('loader');
+    this.scene.start('preLoader');
   }
 }
 

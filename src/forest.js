@@ -1,8 +1,4 @@
 import Phaser from 'phaser';
-import outsideA2 from './assets/images/tileset/Outside_A2.png';
-import outsideB from './assets/images/tileset/Outside_B.png';
-import mapForest from './assets/images/maps/testMap.json';
-import actor from './assets/images/characters/Protas.png';
 
 let direction = 'standDown';
 let player;
@@ -13,15 +9,8 @@ class forest extends Phaser.Scene {
     super({ key: 'forest' });
   }
 
-  preload() {
-    this.load.image('Outside_A2', outsideA2);
-    this.load.image('Outside_B', outsideB);
-    this.load.tilemapTiledJSON('mappy', mapForest);
-    this.load.spritesheet('actor', actor, { frameWidth: 48, frameHeight: 48 });
-  }
-
   create() {
-    const mappy = this.add.tilemap('mappy');
+    const mappy = this.add.tilemap('mapForest');
     const outsideA2Set = mappy.addTilesetImage('Outside_A2');
     const outsideBSet = mappy.addTilesetImage('Outside_B');
 
