@@ -3,6 +3,7 @@ import boot from './boot';
 import preLoader from './pre_loader';
 import mainMenu from './main_menu';
 import forest from './forest';
+import town from './town';
 import world from './world';
 
 const game = (() => {
@@ -19,7 +20,7 @@ const game = (() => {
         debug: true,
       },
     },
-    scene: [boot, preLoader, mainMenu, forest, world],
+    scene: [boot, preLoader, mainMenu, forest, town, world],
   };
 
   const rpgGame = new Phaser.Game(config);
