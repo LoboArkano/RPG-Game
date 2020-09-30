@@ -9,7 +9,7 @@ class dungeon extends Phaser.Scene {
     super({ key: 'dungeon' });
   }
 
-  create() {
+  create(data) {
     const mappy = this.add.tilemap('mapDungeon');
     const dungeonA4Set = mappy.addTilesetImage('Dungeon_A4');
     const dungeonA5Set = mappy.addTilesetImage('Dungeon_A5');
@@ -22,7 +22,7 @@ class dungeon extends Phaser.Scene {
     mappy.createStaticLayer('shadow', dungeonA5Set, 0, 0).setDepth(2);
     mappy.createStaticLayer('decoration', [dungeonCSet, OutsideBSet], 0, 0).setDepth(3);
 
-    player = this.physics.add.sprite(1536, 2928, 'actor');
+    player = this.physics.add.sprite(data.values.x, data.values.y, 'actor');
     this.physics.add.collider(player, objectsLayer);
     // objectsLayer.setCollisionByProperty({ collides: true });
     objectsLayer.setCollisionByExclusion([-1]);
@@ -103,8 +103,10 @@ class dungeon extends Phaser.Scene {
     this.exit.create(1512, 3000, 48, 48);
     this.exit.create(1560, 3000, 48, 48);
     overlapCollider = this.physics.add.collider(player, this.exit, () => {
+      data.values.x = 792;
+      data.values.y = 216;
       this.physics.world.removeCollider(overlapCollider);
-      this.scene.start('world');
+      this.scene.start('world', data);
     }, false, this);
   }
 

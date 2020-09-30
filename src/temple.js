@@ -9,7 +9,7 @@ class temple extends Phaser.Scene {
     super({ key: 'temple' });
   }
 
-  create() {
+  create(data) {
     const mappy = this.add.tilemap('mapTemple');
     const insideCSet = mappy.addTilesetImage('Inside_C');
     const OutsideA2Set = mappy.addTilesetImage('Outside_A2');
@@ -20,7 +20,7 @@ class temple extends Phaser.Scene {
     mappy.createStaticLayer('soilDeco', OutsideBSet, 0, 0).setDepth(-2);
     const objectsLayer = mappy.createStaticLayer('objects', [insideCSet, OutsideBSet], 0, 0).setDepth(1);
 
-    player = this.physics.add.sprite(552, 1110, 'actor');
+    player = this.physics.add.sprite(data.values.x, data.values.y, 'actor');
     this.physics.add.collider(player, objectsLayer);
     // objectsLayer.setCollisionByProperty({ collides: true });
     objectsLayer.setCollisionByExclusion([-1]);
@@ -100,8 +100,10 @@ class temple extends Phaser.Scene {
     this.exit = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
     this.exit.create(552, 1176, 48, 48);
     overlapCollider = this.physics.add.collider(player, this.exit, () => {
+      data.values.x = 264;
+      data.values.y = 552;
       this.physics.world.removeCollider(overlapCollider);
-      this.scene.start('world');
+      this.scene.start('world', data);
     }, false, this);
   }
 

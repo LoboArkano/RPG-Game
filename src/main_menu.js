@@ -18,7 +18,7 @@ class mainMenu extends Phaser.Scene {
   }
 
   startForestScene() {
-    this.scene.start('forest');
+    this.scene.start('forest', this.data);
   }
 
   startBtnHoverState() {

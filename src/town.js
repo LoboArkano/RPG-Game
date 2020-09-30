@@ -9,7 +9,7 @@ class town extends Phaser.Scene {
     super({ key: 'town' });
   }
 
-  create() {
+  create(data) {
     const mappy = this.add.tilemap('mapTown');
     const door1Set = mappy.addTilesetImage('Door1');
     const OutsideA3Set = mappy.addTilesetImage('Outside_A3');
@@ -21,7 +21,7 @@ class town extends Phaser.Scene {
     const objectsLayer = mappy.createStaticLayer('objects', [OutsideA3Set, OutsideA5Set, OutsideBSet], 0, 0).setDepth(1);
     mappy.createStaticLayer('decoration', [door1Set, OutsideBSet], 0, 0).setDepth(2);
 
-    player = this.physics.add.sprite(552, 1350, 'actor');
+    player = this.physics.add.sprite(data.values.x, data.values.y, 'actor');
     this.physics.add.collider(player, objectsLayer);
     // objectsLayer.setCollisionByProperty({ collides: true });
     objectsLayer.setCollisionByExclusion([-1]);
@@ -102,8 +102,10 @@ class town extends Phaser.Scene {
     this.exit.create(552, 1416, 48, 48);
     this.exit.create(552, 24, 48, 48);
     overlapCollider = this.physics.add.collider(player, this.exit, () => {
+      data.values.x = 696;
+      data.values.y = 840;
       this.physics.world.removeCollider(overlapCollider);
-      this.scene.start('world');
+      this.scene.start('world', data);
     }, false, this);
   }
 

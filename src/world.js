@@ -12,7 +12,7 @@ class world extends Phaser.Scene {
     super({ key: 'world' });
   }
 
-  create() {
+  create(data) {
     const mappy = this.add.tilemap('mapWorld');
     const worldA2Set = mappy.addTilesetImage('World_A2');
     const worldBSet = mappy.addTilesetImage('World_B');
@@ -20,8 +20,7 @@ class world extends Phaser.Scene {
     mappy.createStaticLayer('soil', worldA2Set, 0, 0).setDepth(-3);
     const objectsLayer = mappy.createStaticLayer('objects', [worldA2Set, worldBSet], 0, 0).setDepth(-2);
     mappy.createStaticLayer('locations', worldBSet, 0, 0).setDepth(-1);
-
-    player = this.physics.add.sprite(936, 1174, 'actor');
+    player = this.physics.add.sprite(data.values.x, data.values.y, 'actor');
     this.physics.add.collider(player, objectsLayer);
     // objectsLayer.setCollisionByProperty({ collides: true });
     objectsLayer.setCollisionByExclusion([-1]);
@@ -101,30 +100,38 @@ class world extends Phaser.Scene {
     this.dungeon = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
     this.dungeon.create(792, 168, 48, 48);
     overlapDungeon = this.physics.add.collider(player, this.dungeon, () => {
+      data.values.x = 1536;
+      data.values.y = 2928;
       this.physics.world.removeCollider(overlapDungeon);
-      this.scene.start('dungeon');
+      this.scene.start('dungeon', data);
     }, false, this);
 
     this.forest = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
     this.forest.create(936, 1224, 48, 48);
     overlapForest = this.physics.add.collider(player, this.forest, () => {
+      data.values.x = 552;
+      data.values.y = 72;
       this.physics.world.removeCollider(overlapForest);
-      this.scene.start('forest');
+      this.scene.start('forest', data);
     }, false, this);
 
     this.temple = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
     this.temple.create(264, 504, 48, 48);
     overlapTemple = this.physics.add.collider(player, this.temple, () => {
+      data.values.x = 552;
+      data.values.y = 1128;
       this.physics.world.removeCollider(overlapTemple);
-      this.scene.start('temple');
+      this.scene.start('temple', data);
     }, false, this);
 
     this.town = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
     this.town.create(648, 888, 48, 48);
     this.town.create(696, 888, 48, 48);
     overlapTown = this.physics.add.collider(player, this.town, () => {
+      data.values.x = 552;
+      data.values.y = 1350;
       this.physics.world.removeCollider(overlapTown);
-      this.scene.start('town');
+      this.scene.start('town', data);
     }, false, this);
   }
 
