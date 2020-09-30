@@ -6,7 +6,7 @@ const MenuItem = new Phaser.Class({
   initialize:
 
   function MenuItem(x, y, text, scene) {
-    Phaser.GameObjects.Text.call(this, scene, x, y, text, { color: '#ffffff', align: 'left', fontSize: 15 });
+    Phaser.GameObjects.Text.call(this, scene, x, y, text, { color: '#ffffff', align: 'left', fontSize: 20 });
   },
 
   select() {
@@ -68,6 +68,22 @@ const Menu = new Phaser.Class({
 
   confirm() {
     // wen the player confirms his slection, do the action
+  },
+
+  clear() {
+    for (let i = 0; i < this.menuItems.length; i += 1) {
+      this.menuItems[i].destroy();
+    }
+    this.menuItems.length = 0;
+    this.menuItemIndex = 0;
+  },
+
+  remap(units) {
+    this.clear();
+    for (let i = 0; i < units.length; i += 1) {
+      const unit = units[i];
+      this.addMenuItem(unit.type);
+    }
   },
 });
 

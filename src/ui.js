@@ -9,6 +9,8 @@ class ui extends Phaser.Scene {
   }
 
   create(data) {
+    this.battleScene = this.scene.get('battle');
+
     this.graphics = this.add.graphics();
     this.graphics.lineStyle(1, 0xffffff);
     this.graphics.fillStyle(0x031f4c, 0.5);
@@ -33,6 +35,19 @@ class ui extends Phaser.Scene {
     this.menus.add(this.heroesMenu);
     this.menus.add(this.actionsMenu);
     this.menus.add(this.enemiesMenu);
+
+    this.remapHeroes();
+    this.remapEnemies();
+  }
+
+  remapHeroes() {
+    const { heroes } = this.battleScene;
+    this.heroesMenu.remap(heroes);
+  }
+
+  remapEnemies() {
+    const { enemies } = this.battleScene;
+    this.enemiesMenu.remap(enemies);
   }
 
   update() {
