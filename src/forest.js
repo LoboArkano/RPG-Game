@@ -115,6 +115,7 @@ class forest extends Phaser.Scene {
     // shake the world
     this.cameras.main.flash(200);
     // start battle
+    this.scene.switch('battle');
   }
 
   update() {

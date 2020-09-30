@@ -17,6 +17,9 @@ import mapTown from './assets/images/maps/town.json';
 import mapForest from './assets/images/maps/testMap.json';
 import mapWorld from './assets/images/maps/worldMap.json';
 import actor from './assets/images/characters/Protas.png';
+import hornet from './assets/images/enemies/Hornet.png';
+import rat from './assets/images/enemies/Rat.png';
+import spider from './assets/images/enemies/Spider.png';
 
 class mainMenu extends Phaser.Scene {
   constructor() {
@@ -44,6 +47,9 @@ class mainMenu extends Phaser.Scene {
     this.load.tilemapTiledJSON('mapTown', mapTown);
     this.load.tilemapTiledJSON('mapWorld', mapWorld);
     this.load.spritesheet('actor', actor, { frameWidth: 48, frameHeight: 48 });
+    this.load.image('hornet', hornet);
+    this.load.image('rat', rat);
+    this.load.image('spider', spider);
   }
 
   create() {
