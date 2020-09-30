@@ -7,6 +7,8 @@ class battle extends Phaser.Scene {
 
   create(data) {
     this.scene.launch('ui');
+
+    this.cameras.main.setBackgroundColor('rgba(0, 200, 0, 0.5)');
   }
 
   update() {
