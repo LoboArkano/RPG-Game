@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import Message from './message';
 import {
   HeroesMenu, ActionsMenu, EnemiesMenu,
 } from './menu';
@@ -9,8 +10,6 @@ class ui extends Phaser.Scene {
   }
 
   create(data) {
-    this.battleScene = this.scene.get('battle');
-
     this.graphics = this.add.graphics();
     this.graphics.lineStyle(1, 0xffffff);
     this.graphics.fillStyle(0x031f4c, 0.5);
@@ -36,6 +35,8 @@ class ui extends Phaser.Scene {
     this.menus.add(this.actionsMenu);
     this.menus.add(this.enemiesMenu);
 
+    this.battleScene = this.scene.get('battle');
+
     this.remapHeroes();
     this.remapEnemies();
 
@@ -46,6 +47,9 @@ class ui extends Phaser.Scene {
     this.events.on('SelectEnemies', this.onSelectEnemies, this);
 
     this.events.on('Enemy', this.onEnemy, this);
+
+    this.message = new Message(this, this.battleScene.events);
+    this.add.existing(this.message);
 
     this.battleScene.nextTurn();
   }

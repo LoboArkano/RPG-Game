@@ -96,7 +96,7 @@ class forest extends Phaser.Scene {
       // parameters are x, y, width, height
       spawns.create(x, y, 48, 48);
     }
-    this.physics.add.overlap(player, spawns, this.onMeetEnemy, false, this);
+    this.physics.add.collider(player, spawns, this.onMeetEnemy, false, this);
 
     this.exit = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
     this.exit.create(552, 24, 48, 48);
@@ -110,6 +110,7 @@ class forest extends Phaser.Scene {
 
   onMeetEnemy(player, zone) {
     // we move the zone to some other location
+    this.physics.world.removeCollider(zone);
     zone.x = -48;
     zone.y = -48;
     // shake the world
