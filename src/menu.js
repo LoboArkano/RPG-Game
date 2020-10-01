@@ -107,7 +107,7 @@ const ActionsMenu = new Phaser.Class({
     this.addMenuItem('Attack');
   },
   confirm() {
-    // do something when the player selects an action
+    this.scene.events.emit('SelectEnemies');
   },
 
 });
@@ -121,7 +121,7 @@ const EnemiesMenu = new Phaser.Class({
     Menu.call(this, x, y, scene);
   },
   confirm() {
-    // do something when the player selects an enemy
+    this.scene.events.emit('Enemy', this.menuItemIndex);
   },
 });
 
