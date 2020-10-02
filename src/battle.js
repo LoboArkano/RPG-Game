@@ -8,6 +8,8 @@ class battle extends Phaser.Scene {
   }
 
   create(data) {
+    this.data = data;
+
     this.cameras.main.setBackgroundColor('rgba(0, 200, 0, 0.5)');
 
     // player character - warrior
@@ -72,7 +74,7 @@ class battle extends Phaser.Scene {
 
   exitBattle() {
     this.scene.sleep('ui');
-    this.scene.switch('forest');
+    this.scene.switch(this.data.values.location);
   }
 
   wake() {

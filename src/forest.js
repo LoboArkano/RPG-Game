@@ -123,12 +123,12 @@ class forest extends Phaser.Scene {
     this.physics.world.removeCollider(zone);
     zone.x = -48;
     zone.y = -48;
+    this.data.values.location = 'forest';
     // shake the world
     this.cameras.main.flash(200);
-    console.log('battle');
     // start battle
     this.scene.sleep('forest');
-    this.scene.switch('battle');
+    this.scene.launch('battle', this.data);
   }
 
   update() {
