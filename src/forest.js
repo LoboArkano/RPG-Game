@@ -103,9 +103,19 @@ class forest extends Phaser.Scene {
     overlapCollider = this.physics.add.collider(player, this.exit, () => {
       data.values.x = 936;
       data.values.y = 1174;
+      console.log('exit');
       this.physics.world.removeCollider(overlapCollider);
       this.scene.start('world', data);
     }, false, this);
+
+    this.sys.events.on('wake', this.wake, this);
+  }
+
+  wake() {
+    this.keyboard.A.reset();
+    this.keyboard.S.reset();
+    this.keyboard.W.reset();
+    this.keyboard.D.reset();
   }
 
   onMeetEnemy(player, zone) {
@@ -115,29 +125,33 @@ class forest extends Phaser.Scene {
     zone.y = -48;
     // shake the world
     this.cameras.main.flash(200);
+    console.log('battle');
     // start battle
+    this.scene.sleep('forest');
     this.scene.switch('battle');
   }
 
   update() {
+    player.body.setVelocity(0);
+
     if (this.keyboard.A.isDown) {
       // Left
-      player.x -= 5;
+      player.body.setVelocityX(-80);
       player.anims.play('left', true);
       direction = 'standLeft';
     } else if (this.keyboard.D.isDown) {
       // Right
-      player.x += 5;
+      player.body.setVelocityX(80);
       player.anims.play('right', true);
       direction = 'standRight';
     } else if (this.keyboard.W.isDown) {
       // Up
-      player.y -= 5;
+      player.body.setVelocityY(-80);
       player.anims.play('up', true);
       direction = 'standUp';
     } else if (this.keyboard.S.isDown) {
       // Down
-      player.y += 5;
+      player.body.setVelocityY(80);
       player.anims.play('down', true);
       direction = 'standDown';
     } else {

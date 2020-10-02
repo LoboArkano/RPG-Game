@@ -34,6 +34,12 @@ class battle extends Phaser.Scene {
     this.scene.launch('ui');
 
     this.index = -1;
+
+    const timeEvent = this.time.addEvent({
+      delay: 2000, callback: this.exitBattle, callbackScope: this,
+    });
+
+    this.sys.events.on('wake', this.wake, this);
   }
 
   nextTurn() {
@@ -62,6 +68,16 @@ class battle extends Phaser.Scene {
       this.units[this.index].attack(this.enemies[target]);
     }
     this.time.addEvent({ delay: 3000, callback: this.nextTurn, callbackScope: this });
+  }
+
+  exitBattle() {
+    this.scene.sleep('ui');
+    this.scene.switch('forest');
+  }
+
+  wake() {
+    this.scene.launch('ui');
+    this.time.addEvent({ delay: 2000, callback: this.exitBattle, callbackScope: this });
   }
 
   update() {
