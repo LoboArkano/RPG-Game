@@ -19,35 +19,14 @@ class forest extends Phaser.Scene {
 
     mappy.createStaticLayer('soil', outsideA2Set, 0, 0).setDepth(-2);
     mappy.createStaticLayer('plants', outsideBSet, 0, 0).setDepth(-1);
-    mappy.createStaticLayer('objects', outsideBSet, 0, 0).setDepth(1);
+    const objectLayer = mappy.createDynamicLayer('objects', outsideBSet, this.tileset, 0, 0).setDepth(1);
     if (data.values.x === undefined) {
       player = this.physics.add.sprite(480, 400, 'actor');
     } else {
       player = this.physics.add.sprite(data.values.x, data.values.y, 'actor');
     }
-
-    // Collisions
-    blocks = this.physics.add.staticGroup();
-    blocks.create(504, 24, 'Block').setDepth(-10);
-    blocks.create(48, 72, 'Block').setDepth(-10);
-    blocks.create(96, 120, 'Block').setDepth(-10);
-    blocks.create(768, 120, 'Block').setDepth(-10);
-    blocks.create(864, 120, 'Block').setDepth(-10);
-    blocks.create(816, 168, 'Block').setDepth(-10);
-    blocks.create(672, 216, 'Block').setDepth(-10);
-    blocks.create(912, 216, 'Block').setDepth(-10);
-    blocks.create(288, 264, 'Block').setDepth(-10);
-    blocks.create(96, 312, 'Block').setDepth(-10);
-    blocks.create(744, 312, 'Block').setDepth(-10);
-    blocks.create(816, 312, 'Block').setDepth(-10);
-    blocks.create(912, 312, 'Block').setDepth(-10);
-    blocks.create(48, 360, 'Block').setDepth(-10);
-    blocks.create(600, 360, 'Block').setDepth(-10);
-    blocks.create(864, 360, 'Block').setDepth(-10);
-    blocks.create(312, 408, 'Block').setDepth(-10);
-    blocks.create(816, 408, 'Block').setDepth(-10);
-    blocks.create(456, 456, 'Block').setDepth(-10);
-    this.physics.add.collider(player, blocks);
+    objectLayer.setCollisionByProperty({ collides: true });
+    this.physics.add.collider(player, objectLayer, null, null, this);
 
     this.physics.world.bounds.width = mappy.widthInPixels;
     this.physics.world.bounds.height = mappy.heightInPixels;
