@@ -49,7 +49,7 @@ class ui extends Phaser.Scene {
 
     this.message = new Message(this, this.battleScene.events);
     this.add.existing(this.message);
-    console.log('create menu');
+
     this.createMenu();
   }
 
@@ -101,9 +101,6 @@ class ui extends Phaser.Scene {
     this.enemiesMenu.deselect();
     this.currentMenu = null;
     this.battleScene.receivePlayerSelection('attack', index);
-  }
-
-  update() {
   }
 }
 

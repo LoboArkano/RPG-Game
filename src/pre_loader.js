@@ -20,6 +20,7 @@ import actor from './assets/images/characters/Protas.png';
 import hornet from './assets/images/enemies/Hornet.png';
 import rat from './assets/images/enemies/Rat.png';
 import spider from './assets/images/enemies/Spider.png';
+import werewolf from './assets/images/enemies/Werewolf.png';
 
 class mainMenu extends Phaser.Scene {
   constructor() {
@@ -50,6 +51,7 @@ class mainMenu extends Phaser.Scene {
     this.load.image('hornet', hornet);
     this.load.image('rat', rat);
     this.load.image('spider', spider);
+    this.load.image('werewolf', werewolf);
   }
 
   create() {

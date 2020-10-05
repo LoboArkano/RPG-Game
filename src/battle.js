@@ -32,16 +32,10 @@ class battle extends Phaser.Scene {
     const paladin = new PlayerCharacter(this, 750, 240, 'actor', 22, 'Paladin', 150, 22);
     this.add.existing(paladin);
 
-    const hornet = new Enemy(this, 160, 70, 'hornet', null, 'Hornet', 50, 3);
-    this.add.existing(hornet);
-
-    const spider = new Enemy(this, 150, 140, 'spider', null, 'Spider', 50, 3);
-    this.add.existing(spider);
-
     // array with heroes
     this.heroes = [warrior, rouge, knight, paladin];
     // array with enemies
-    this.enemies = [hornet, spider];
+    this.enemies = this.createEnemies();
     // array with both parties, who will attack
     this.units = this.heroes.concat(this.enemies);
 
@@ -125,6 +119,44 @@ class battle extends Phaser.Scene {
   wake() {
     this.scene.launch('ui');
     this.time.addEvent({ delay: 2000, callback: this.exitBattle, callbackScope: this });
+  }
+
+  createEnemies() {
+    let type;
+    let enemies;
+
+    switch (this.data.values.location) {
+      case 'forest':
+        type = Math.floor(Math.random() * 3);
+        if (type === 0) {
+          const hornet = new Enemy(this, 160, 70, 'hornet', null, 'Hornet', 50, 8);
+          this.add.existing(hornet);
+          const spider = new Enemy(this, 150, 140, 'spider', null, 'Spider', 40, 6);
+          this.add.existing(spider);
+
+          enemies = [hornet, spider];
+        } else if (type === 1) {
+          const rat = new Enemy(this, 160, 70, 'rat', null, 'Rat', 45, 5);
+          this.add.existing(rat);
+          const rat2 = new Enemy(this, 150, 140, 'rat', null, 'Rat', 45, 5);
+          this.add.existing(rat2);
+          const rat3 = new Enemy(this, 160, 210, 'rat', null, 'Rat', 45, 5);
+          this.add.existing(rat3);
+
+          enemies = [rat, rat2, rat3];
+        } else {
+          const werewolf = new Enemy(this, 160, 70, 'werewolf', null, 'Werewolf', 75, 25);
+          this.add.existing(werewolf);
+          const werewolf2 = new Enemy(this, 160, 140, 'werewolf', null, 'Werewolf', 75, 25);
+          this.add.existing(werewolf2);
+
+          enemies = [werewolf, werewolf2];
+        }
+        break;
+      default:
+    }
+
+    return enemies;
   }
 }
 

@@ -7,7 +7,6 @@ const PlayerCharacter = new Phaser.Class({
   initialize:
   function PlayerCharacter(scene, x, y, texture, frame, type, hp, damage) {
     Unit.call(this, scene, x, y, texture, frame, type, hp, damage);
-    // flip the image so I don't have to edit it manually
   },
 });
 
