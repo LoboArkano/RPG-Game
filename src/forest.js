@@ -4,6 +4,7 @@ import ui from './ui';
 
 let direction = 'standDown';
 let player;
+let blocks;
 let spawns;
 let overlapCollider;
 class forest extends Phaser.Scene {
@@ -18,16 +19,35 @@ class forest extends Phaser.Scene {
 
     mappy.createStaticLayer('soil', outsideA2Set, 0, 0).setDepth(-2);
     mappy.createStaticLayer('plants', outsideBSet, 0, 0).setDepth(-1);
-    const objectsLayer = mappy.createStaticLayer('objects', outsideBSet, 0, 0).setDepth(1);
+    mappy.createStaticLayer('objects', outsideBSet, 0, 0).setDepth(1);
     if (data.values.x === undefined) {
       player = this.physics.add.sprite(480, 400, 'actor');
     } else {
       player = this.physics.add.sprite(data.values.x, data.values.y, 'actor');
     }
-    this.physics.add.collider(player, objectsLayer);
-    // objectsLayer.setCollisionByProperty({ collides: true });
-    // objectsLayer.setCollisionByExclusion([-1]);
-    objectsLayer.setCollision(145, true);
+
+    // Collisions
+    blocks = this.physics.add.staticGroup();
+    blocks.create(504, 24, 'Block').setDepth(-10);
+    blocks.create(48, 72, 'Block').setDepth(-10);
+    blocks.create(96, 120, 'Block').setDepth(-10);
+    blocks.create(768, 120, 'Block').setDepth(-10);
+    blocks.create(864, 120, 'Block').setDepth(-10);
+    blocks.create(816, 168, 'Block').setDepth(-10);
+    blocks.create(672, 216, 'Block').setDepth(-10);
+    blocks.create(912, 216, 'Block').setDepth(-10);
+    blocks.create(288, 264, 'Block').setDepth(-10);
+    blocks.create(96, 312, 'Block').setDepth(-10);
+    blocks.create(744, 312, 'Block').setDepth(-10);
+    blocks.create(816, 312, 'Block').setDepth(-10);
+    blocks.create(912, 312, 'Block').setDepth(-10);
+    blocks.create(48, 360, 'Block').setDepth(-10);
+    blocks.create(600, 360, 'Block').setDepth(-10);
+    blocks.create(864, 360, 'Block').setDepth(-10);
+    blocks.create(312, 408, 'Block').setDepth(-10);
+    blocks.create(816, 408, 'Block').setDepth(-10);
+    blocks.create(456, 456, 'Block').setDepth(-10);
+    this.physics.add.collider(player, blocks);
 
     this.physics.world.bounds.width = mappy.widthInPixels;
     this.physics.world.bounds.height = mappy.heightInPixels;
@@ -92,11 +112,11 @@ class forest extends Phaser.Scene {
     this.keyboard = this.input.keyboard.addKeys('W,A,S,D');
 
     spawns = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
-    for (let i = 0; i < 25; i += 1) {
+    for (let i = 0; i < 20; i += 1) {
       const x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
-      const y = Phaser.Math.RND.between(0, this.physics.world.bounds.height) - 100;
+      const y = Phaser.Math.RND.between(100, this.physics.world.bounds.height - 130);
       // parameters are x, y, width, height
-      spawns.create(x, y, 48, 48);
+      spawns.create(x, y, 30, 30);
     }
     this.physics.add.collider(player, spawns, this.onMeetEnemy, false, this);
 

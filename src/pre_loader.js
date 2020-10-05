@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import menu from './assets/images/title/Book.png';
+import block from './assets/images/tileset/block.png';
 import door1 from './assets/images/object/Door1.png';
 import outsideA2 from './assets/images/tileset/Outside_A2.png';
 import outsideA3 from './assets/images/tileset/Outside_A3.png';
@@ -31,6 +32,7 @@ class mainMenu extends Phaser.Scene {
     this.image = this.add.image(480, 240, 'loading');
 
     this.load.image('menu', menu);
+    this.load.image('Block', block);
     this.load.image('Door1', door1);
     this.load.image('Dungeon_A4', dungeonA4);
     this.load.image('Dungeon_A5', dungeonA5);
