@@ -17,21 +17,29 @@ class battle extends Phaser.Scene {
 
   startBattle() {
     // player character - warrior
-    const warrior = new PlayerCharacter(this, 700, 40, 'actor', 13, 'Warrior', 100, 20);
+    const warrior = new PlayerCharacter(this, 750, 60, 'actor', 13, 'Warrior', 100, 20);
     this.add.existing(warrior);
 
     // player character - rouge
-    const rouge = new PlayerCharacter(this, 750, 100, 'actor', 16, 'Rouge', 80, 15);
+    const rouge = new PlayerCharacter(this, 800, 120, 'actor', 16, 'Rouge', 80, 15);
     this.add.existing(rouge);
 
-    const hornet = new Enemy(this, 100, 40, 'hornet', null, 'Hornet', 50, 3);
+    // player character - knight
+    const knight = new PlayerCharacter(this, 800, 180, 'actor', 19, 'Knight', 130, 25);
+    this.add.existing(knight);
+
+    // player character - paladin
+    const paladin = new PlayerCharacter(this, 750, 240, 'actor', 22, 'Paladin', 150, 22);
+    this.add.existing(paladin);
+
+    const hornet = new Enemy(this, 160, 70, 'hornet', null, 'Hornet', 50, 3);
     this.add.existing(hornet);
 
-    const spider = new Enemy(this, 150, 100, 'spider', null, 'Spider', 50, 3);
+    const spider = new Enemy(this, 150, 140, 'spider', null, 'Spider', 50, 3);
     this.add.existing(spider);
 
     // array with heroes
-    this.heroes = [warrior, rouge];
+    this.heroes = [warrior, rouge, knight, paladin];
     // array with enemies
     this.enemies = [hornet, spider];
     // array with both parties, who will attack
