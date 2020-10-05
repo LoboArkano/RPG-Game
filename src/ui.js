@@ -37,21 +37,20 @@ class ui extends Phaser.Scene {
 
     this.battleScene = this.scene.get('battle');
 
-    this.remapHeroes();
-    this.remapEnemies();
-
     this.input.keyboard.on('keydown', this.onKeyInput, this);
 
     this.battleScene.events.on('PlayerSelect', this.onPlayerSelect, this);
 
-    this.events.on('SelectEnemies', this.onSelectEnemies, this);
+    this.events.on('SelectedAction', this.onSelectedAction, this);
 
     this.events.on('Enemy', this.onEnemy, this);
 
+    this.sys.events.on('wake', this.createMenu, this);
+
     this.message = new Message(this, this.battleScene.events);
     this.add.existing(this.message);
-
-    this.battleScene.nextTurn();
+    console.log('create menu');
+    this.createMenu();
   }
 
   remapHeroes() {
@@ -64,13 +63,21 @@ class ui extends Phaser.Scene {
     this.enemiesMenu.remap(enemies);
   }
 
+  createMenu() {
+    // map hero menu items to heroes
+    this.remapHeroes();
+    // map enemies menu items to enemies
+    this.remapEnemies();
+    // first move
+    this.battleScene.nextTurn();
+  }
+
   onKeyInput(event) {
-    if (this.currentMenu) {
+    if (this.currentMenu && this.currentMenu.selected) {
       if (event.code === 'ArrowUp') {
         this.currentMenu.moveSelectionUp();
       } else if (event.code === 'ArrowDown') {
         this.currentMenu.moveSelectionDown();
-      } else if (event.code === 'ArrowRight' || event.code === 'Shift') {
       } else if (event.code === 'Space' || event.code === 'ArrowLeft') {
         this.currentMenu.confirm();
       }
@@ -83,7 +90,7 @@ class ui extends Phaser.Scene {
     this.currentMenu = this.actionsMenu;
   }
 
-  onSelectEnemies() {
+  onSelectedAction() {
     this.currentMenu = this.enemiesMenu;
     this.enemiesMenu.select(0);
   }

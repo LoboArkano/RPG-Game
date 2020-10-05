@@ -1,4 +1,6 @@
 import Phaser from 'phaser';
+import battle from './battle';
+import ui from './ui';
 
 let direction = 'standDown';
 let player;
@@ -103,7 +105,6 @@ class forest extends Phaser.Scene {
     overlapCollider = this.physics.add.collider(player, this.exit, () => {
       data.values.x = 936;
       data.values.y = 1174;
-      console.log('exit');
       this.physics.world.removeCollider(overlapCollider);
       this.scene.start('world', data);
     }, false, this);
@@ -126,6 +127,10 @@ class forest extends Phaser.Scene {
     this.data.values.location = 'forest';
     // shake the world
     this.cameras.main.flash(200);
+
+    this.scene.add('ui', ui);
+    this.scene.add('battle', battle);
+
     // start battle
     this.scene.sleep('forest');
     this.scene.launch('battle', this.data);
