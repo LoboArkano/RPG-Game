@@ -145,12 +145,31 @@ class battle extends Phaser.Scene {
 
           enemies = [rat, rat2, rat3];
         } else {
-          const werewolf = new Enemy(this, 160, 70, 'werewolf', null, 'Werewolf', 75, 25);
+          const werewolf = new Enemy(this, 160, 70, 'werewolf', null, 'Werewolf', 85, 25);
           this.add.existing(werewolf);
-          const werewolf2 = new Enemy(this, 160, 140, 'werewolf', null, 'Werewolf', 75, 25);
+          const werewolf2 = new Enemy(this, 160, 140, 'werewolf', null, 'Werewolf', 85, 25);
           this.add.existing(werewolf2);
 
           enemies = [werewolf, werewolf2];
+        }
+        break;
+      case 'world':
+        type = Math.floor(Math.random() * 3);
+        if (type === 0) {
+          const behemoth = new Enemy(this, 160, 150, 'behemoth', null, 'Behemoth', 150, 40);
+          this.add.existing(behemoth);
+
+          enemies = [behemoth];
+        } else if (type === 1) {
+          const minotaur = new Enemy(this, 160, 150, 'minotaur', null, 'Minotaur', 175, 50);
+          this.add.existing(minotaur);
+
+          enemies = [minotaur];
+        } else {
+          const orc = new Enemy(this, 160, 70, 'orc', null, 'Orc', 85, 25);
+          this.add.existing(orc);
+
+          enemies = [orc];
         }
         break;
       default:

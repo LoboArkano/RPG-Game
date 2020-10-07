@@ -22,6 +22,9 @@ import hornet from './assets/images/enemies/Hornet.png';
 import rat from './assets/images/enemies/Rat.png';
 import spider from './assets/images/enemies/Spider.png';
 import werewolf from './assets/images/enemies/Werewolf.png';
+import behemoth from './assets/images/enemies/Behemoth.png';
+import minotaur from './assets/images/enemies/Minotaur.png';
+import orc from './assets/images/enemies/Orc.png';
 
 class mainMenu extends Phaser.Scene {
   constructor() {
@@ -54,6 +57,9 @@ class mainMenu extends Phaser.Scene {
     this.load.image('rat', rat);
     this.load.image('spider', spider);
     this.load.image('werewolf', werewolf);
+    this.load.image('behemoth', behemoth);
+    this.load.image('minotaur', minotaur);
+    this.load.image('orc', orc);
   }
 
   create() {
