@@ -99,7 +99,7 @@ class world extends Phaser.Scene {
     this.physics.add.overlap(player, spawns, this.onMeetEnemy, false, this);
 
     this.dungeon = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
-    this.dungeon.create(792, 168, 48, 48);
+    this.dungeon.create(792, 170, 48, 48);
     overlapDungeon = this.physics.add.collider(player, this.dungeon, () => {
       data.values.x = 1536;
       data.values.y = 2928;
