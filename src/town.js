@@ -1,4 +1,6 @@
 import Phaser from 'phaser';
+import battle from './battle';
+import ui from './ui';
 
 let direction = 'standDown';
 let player;
@@ -18,14 +20,12 @@ class town extends Phaser.Scene {
 
     mappy.createStaticLayer('soil', OutsideA5Set, 0, 0).setDepth(-3);
     mappy.createStaticLayer('soilDeco', OutsideBSet, 0, 0).setDepth(-2);
-    const objectsLayer = mappy.createStaticLayer('objects', [OutsideA3Set, OutsideA5Set, OutsideBSet], 0, 0).setDepth(1);
     mappy.createStaticLayer('decoration', [door1Set, OutsideBSet], 0, 0).setDepth(2);
+    const objectsLayer = mappy.createDynamicLayer('objects', [OutsideA3Set, OutsideA5Set, OutsideBSet], 0, 0).setDepth(1);
 
     player = this.physics.add.sprite(data.values.x, data.values.y, 'actor');
+    objectsLayer.setCollisionByProperty({ collides: true });
     this.physics.add.collider(player, objectsLayer);
-    // objectsLayer.setCollisionByProperty({ collides: true });
-    objectsLayer.setCollisionByExclusion([-1]);
-    // objectsLayer.setCollision([338, 373, 389, 417, 418, 419, 420, 433, 434, 435, 436]);
 
     this.physics.world.bounds.width = mappy.widthInPixels;
     this.physics.world.bounds.height = mappy.heightInPixels;
@@ -92,7 +92,7 @@ class town extends Phaser.Scene {
     spawns = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
     for (let i = 0; i < 35; i += 1) {
       const x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
-      const y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
+      const y = Phaser.Math.RND.between(100, this.physics.world.bounds.height - 130);
       // parameters are x, y, width, height
       spawns.create(x, y, 48, 48);
     }
@@ -100,43 +100,62 @@ class town extends Phaser.Scene {
 
     this.exit = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
     this.exit.create(552, 1416, 48, 48);
-    this.exit.create(552, 24, 48, 48);
+    this.exit.create(552, 24, 50, 50);
     overlapCollider = this.physics.add.collider(player, this.exit, () => {
       data.values.x = 696;
       data.values.y = 840;
       this.physics.world.removeCollider(overlapCollider);
       this.scene.start('world', data);
     }, false, this);
+
+    this.sys.events.on('wake', this.wake, this);
+  }
+
+  wake() {
+    this.keyboard.A.reset();
+    this.keyboard.S.reset();
+    this.keyboard.W.reset();
+    this.keyboard.D.reset();
   }
 
   onMeetEnemy(player, zone) {
     // we move the zone to some other location
+    this.physics.world.removeCollider(zone);
     zone.x = -48;
     zone.y = -48;
+    this.data.values.location = 'forest';
     // shake the world
     this.cameras.main.flash(200);
+
+    this.scene.add('ui', ui);
+    this.scene.add('battle', battle);
+
     // start battle
+    this.scene.sleep('forest');
+    this.scene.launch('battle', this.data);
   }
 
   update() {
+    player.body.setVelocity(0);
+
     if (this.keyboard.A.isDown) {
       // Left
-      player.x -= 5;
+      player.body.setVelocityX(-80);
       player.anims.play('left', true);
       direction = 'standLeft';
     } else if (this.keyboard.D.isDown) {
       // Right
-      player.x += 5;
+      player.body.setVelocityX(80);
       player.anims.play('right', true);
       direction = 'standRight';
     } else if (this.keyboard.W.isDown) {
       // Up
-      player.y -= 5;
+      player.body.setVelocityY(-80);
       player.anims.play('up', true);
       direction = 'standUp';
     } else if (this.keyboard.S.isDown) {
       // Down
-      player.y += 5;
+      player.body.setVelocityY(80);
       player.anims.play('down', true);
       direction = 'standDown';
     } else {

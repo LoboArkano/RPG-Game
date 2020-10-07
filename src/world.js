@@ -20,8 +20,8 @@ class world extends Phaser.Scene {
     const worldBSet = mappy.addTilesetImage('World_B');
 
     mappy.createStaticLayer('soil', worldA2Set, 0, 0).setDepth(-3);
-    const objectsLayer = mappy.createDynamicLayer('objects', [worldA2Set, worldBSet], 0, 0).setDepth(-2);
     mappy.createStaticLayer('locations', worldBSet, 0, 0).setDepth(-1);
+    const objectsLayer = mappy.createDynamicLayer('objects', [worldA2Set, worldBSet], 0, 0).setDepth(-2);
 
     player = this.physics.add.sprite(data.values.x, data.values.y, 'actor');
     objectsLayer.setCollisionByProperty({ collides: true });
