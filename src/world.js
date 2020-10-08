@@ -3,6 +3,7 @@ import battle from './battle';
 import ui from './ui';
 
 let direction = 'standDown';
+let onBattle = false;
 let player;
 let overlapDungeon;
 let overlapForest;
@@ -139,6 +140,7 @@ class world extends Phaser.Scene {
   }
 
   wake() {
+    onBattle = false;
     this.keyboard.A.reset();
     this.keyboard.S.reset();
     this.keyboard.W.reset();
@@ -147,18 +149,22 @@ class world extends Phaser.Scene {
 
   onMeetEnemy(player, zone) {
     // we move the zone to some other location
-    this.physics.world.removeCollider(zone);
-    zone.x = -48;
-    zone.y = -48;
-    this.data.values.location = 'world';
-    // shake the world
-    this.cameras.main.flash(200);
+    if (!onBattle) {
+      console.log('onmeet');
+      onBattle = true;
+      this.physics.world.removeCollider(zone);
+      zone.x = -48;
+      zone.y = -48;
+      this.data.values.location = 'world';
+      // shake the world
+      this.cameras.main.flash(200);
 
-    this.scene.add('ui', ui);
-    this.scene.add('battle', battle);
-    // start battle
-    this.scene.sleep('world');
-    this.scene.launch('battle', this.data);
+      this.scene.add('ui', ui);
+      this.scene.add('battle', battle);
+      // start battle
+      this.scene.sleep('world');
+      this.scene.launch('battle', this.data);
+    }
   }
 
   update() {

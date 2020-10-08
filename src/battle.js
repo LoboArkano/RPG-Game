@@ -111,16 +111,6 @@ class battle extends Phaser.Scene {
     this.time.addEvent({ delay: 3000, callback: this.nextTurn, callbackScope: this });
   }
 
-  exitBattle() {
-    this.scene.sleep('ui');
-    this.scene.switch(this.data.values.location);
-  }
-
-  wake() {
-    this.scene.launch('ui');
-    this.time.addEvent({ delay: 2000, callback: this.exitBattle, callbackScope: this });
-  }
-
   createEnemies() {
     let type;
     let enemies;
