@@ -25,6 +25,14 @@ import werewolf from './assets/images/enemies/Werewolf.png';
 import behemoth from './assets/images/enemies/Behemoth.png';
 import minotaur from './assets/images/enemies/Minotaur.png';
 import orc from './assets/images/enemies/Orc.png';
+import mage from './assets/images/enemies/Mage.png';
+import soldier from './assets/images/enemies/Soldier.png';
+import assassin from './assets/images/enemies/Rogue.png';
+import swordsman from './assets/images/enemies/Swordsman.png';
+import ghostArmor from './assets/images/enemies/Ghost_Armor.png';
+import imp from './assets/images/enemies/Imp.png';
+import bat from './assets/images/enemies/Bat.png';
+import general from './assets/images/enemies/General.png';
 
 class mainMenu extends Phaser.Scene {
   constructor() {
@@ -60,6 +68,14 @@ class mainMenu extends Phaser.Scene {
     this.load.image('behemoth', behemoth);
     this.load.image('minotaur', minotaur);
     this.load.image('orc', orc);
+    this.load.image('mage', mage);
+    this.load.image('soldier', soldier);
+    this.load.image('assassin', assassin);
+    this.load.image('swordsman', swordsman);
+    this.load.image('ghostArmor', ghostArmor);
+    this.load.image('imp', imp);
+    this.load.image('bat', bat);
+    this.load.image('general', general);
   }
 
   create() {

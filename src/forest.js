@@ -91,7 +91,7 @@ class forest extends Phaser.Scene {
     this.keyboard = this.input.keyboard.addKeys('W,A,S,D');
 
     spawns = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
-    for (let i = 0; i < 20; i += 1) {
+    for (let i = 0; i < 15; i += 1) {
       const x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
       const y = Phaser.Math.RND.between(100, this.physics.world.bounds.height - 130);
       // parameters are x, y, width, height

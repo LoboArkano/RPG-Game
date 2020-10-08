@@ -20,9 +20,9 @@ class battle extends Phaser.Scene {
     const warrior = new PlayerCharacter(this, 750, 60, 'actor', 13, 'Warrior', 100, 20);
     this.add.existing(warrior);
 
-    // player character - rouge
-    const rouge = new PlayerCharacter(this, 800, 120, 'actor', 16, 'Rouge', 80, 15);
-    this.add.existing(rouge);
+    // player character - rogue
+    const rogue = new PlayerCharacter(this, 800, 120, 'actor', 16, 'Rogue', 80, 15);
+    this.add.existing(rogue);
 
     // player character - knight
     const knight = new PlayerCharacter(this, 800, 180, 'actor', 19, 'Knight', 130, 25);
@@ -33,7 +33,7 @@ class battle extends Phaser.Scene {
     this.add.existing(paladin);
 
     // array with heroes
-    this.heroes = [warrior, rouge, knight, paladin];
+    this.heroes = [warrior, rogue, knight, paladin];
     // array with enemies
     this.enemies = this.createEnemies();
     // array with both parties, who will attack
@@ -119,25 +119,25 @@ class battle extends Phaser.Scene {
       case 'forest':
         type = Math.floor(Math.random() * 3);
         if (type === 0) {
-          const hornet = new Enemy(this, 160, 70, 'hornet', null, 'Hornet', 50, 8);
+          const hornet = new Enemy(this, 160, 90, 'hornet', null, 'Hornet', 50, 8);
           this.add.existing(hornet);
-          const spider = new Enemy(this, 150, 140, 'spider', null, 'Spider', 40, 6);
+          const spider = new Enemy(this, 120, 160, 'spider', null, 'Spider', 40, 6);
           this.add.existing(spider);
 
           enemies = [hornet, spider];
         } else if (type === 1) {
           const rat = new Enemy(this, 160, 70, 'rat', null, 'Rat', 45, 5);
           this.add.existing(rat);
-          const rat2 = new Enemy(this, 150, 140, 'rat', null, 'Rat', 45, 5);
+          const rat2 = new Enemy(this, 120, 150, 'rat', null, 'Rat', 45, 5);
           this.add.existing(rat2);
-          const rat3 = new Enemy(this, 160, 210, 'rat', null, 'Rat', 45, 5);
+          const rat3 = new Enemy(this, 160, 220, 'rat', null, 'Rat', 45, 5);
           this.add.existing(rat3);
 
           enemies = [rat, rat2, rat3];
         } else {
           const werewolf = new Enemy(this, 160, 70, 'werewolf', null, 'Werewolf', 85, 25);
           this.add.existing(werewolf);
-          const werewolf2 = new Enemy(this, 160, 140, 'werewolf', null, 'Werewolf', 85, 25);
+          const werewolf2 = new Enemy(this, 120, 170, 'werewolf', null, 'Werewolf', 85, 25);
           this.add.existing(werewolf2);
 
           enemies = [werewolf, werewolf2];
@@ -151,15 +151,114 @@ class battle extends Phaser.Scene {
 
           enemies = [behemoth];
         } else if (type === 1) {
-          const minotaur = new Enemy(this, 160, 150, 'minotaur', null, 'Minotaur', 175, 50);
+          const minotaur = new Enemy(this, 160, 170, 'minotaur', null, 'Minotaur', 175, 50);
           this.add.existing(minotaur);
 
           enemies = [minotaur];
         } else {
-          const orc = new Enemy(this, 160, 70, 'orc', null, 'Orc', 85, 25);
+          const orc = new Enemy(this, 160, 120, 'orc', null, 'Orc', 85, 25);
           this.add.existing(orc);
 
           enemies = [orc];
+        }
+        break;
+      case 'town':
+        type = Math.floor(Math.random() * 4);
+        if (type === 0) {
+          const assassin = new Enemy(this, 160, 100, 'assassin', null, 'Assassin', 80, 25);
+          this.add.existing(assassin);
+          const soldier = new Enemy(this, 120, 150, 'soldier', null, 'Soldier', 130, 35);
+          this.add.existing(soldier);
+          const assassin2 = new Enemy(this, 160, 200, 'assassin', null, 'Assassin', 80, 25);
+          this.add.existing(assassin2);
+
+          enemies = [assassin, soldier, assassin2];
+        } else if (type === 1) {
+          const soldier = new Enemy(this, 160, 100, 'soldier', null, 'Soldier', 130, 35);
+          this.add.existing(soldier);
+          const swordsman = new Enemy(this, 120, 150, 'swordsman', null, 'Swordsman', 100, 40);
+          this.add.existing(swordsman);
+          const mage = new Enemy(this, 160, 200, 'mage', null, 'Mage', 70, 70);
+          this.add.existing(mage);
+
+          enemies = [soldier, swordsman, mage];
+        } else if (type === 2) {
+          const swordsman = new Enemy(this, 160, 125, 'swordsman', null, 'Swordsman', 100, 40);
+          this.add.existing(swordsman);
+          const mage = new Enemy(this, 160, 175, 'mage', null, 'Mage', 70, 70);
+          this.add.existing(mage);
+
+          enemies = [swordsman, mage];
+        } else {
+          const mage = new Enemy(this, 160, 100, 'mage', null, 'Mage', 70, 70);
+          this.add.existing(mage);
+          const mage2 = new Enemy(this, 120, 150, 'mage', null, 'Mage', 70, 70);
+          this.add.existing(mage2);
+          const mage3 = new Enemy(this, 160, 200, 'mage', null, 'Mage', 70, 70);
+          this.add.existing(mage3);
+
+          enemies = [mage, mage2, mage3];
+        }
+        break;
+      case 'temple':
+        type = Math.floor(Math.random() * 3);
+        if (type === 0) {
+          const assassin = new Enemy(this, 160, 100, 'assassin', null, 'Assassin', 80, 30);
+          this.add.existing(assassin);
+          const soldier = new Enemy(this, 120, 150, 'soldier', null, 'Soldier', 130, 40);
+          this.add.existing(soldier);
+          const assassin2 = new Enemy(this, 160, 200, 'assassin', null, 'Assassin', 80, 30);
+          this.add.existing(assassin2);
+
+          enemies = [assassin, soldier, assassin2];
+        } else if (type === 1) {
+          const soldier = new Enemy(this, 160, 100, 'soldier', null, 'Soldier', 130, 40);
+          this.add.existing(soldier);
+          const swordsman = new Enemy(this, 120, 150, 'swordsman', null, 'Swordsman', 100, 45);
+          this.add.existing(swordsman);
+          const mage = new Enemy(this, 160, 200, 'mage', null, 'Mage', 70, 80);
+          this.add.existing(mage);
+
+          enemies = [soldier, swordsman, mage];
+        } else {
+          const mage = new Enemy(this, 160, 100, 'mage', null, 'Mage', 70, 80);
+          this.add.existing(mage);
+          const mage2 = new Enemy(this, 120, 150, 'mage', null, 'Mage', 70, 80);
+          this.add.existing(mage2);
+          const mage3 = new Enemy(this, 160, 200, 'mage', null, 'Mage', 70, 80);
+          this.add.existing(mage3);
+
+          enemies = [mage, mage2, mage3];
+        }
+        break;
+      case 'dungeon':
+        type = Math.floor(Math.random() * 10);
+        if (type <= 4) {
+          const bat = new Enemy(this, 160, 100, 'bat', null, 'Bat', 70, 20);
+          this.add.existing(bat);
+          const imp = new Enemy(this, 120, 150, 'imp', null, 'Imp', 100, 55);
+          this.add.existing(imp);
+          const bat2 = new Enemy(this, 160, 200, 'bat', null, 'Bat', 70, 20);
+          this.add.existing(bat2);
+
+          enemies = [bat, imp, bat2];
+        } else if (type <= 6) {
+          const ghostArmor = new Enemy(this, 160, 150, 'ghostArmor', null, 'Ghost Armor', 200, 55);
+          this.add.existing(ghostArmor);
+
+          enemies = [ghostArmor];
+        } else if (type <= 8) {
+          const general = new Enemy(this, 160, 150, 'general', null, 'General', 250, 60);
+          this.add.existing(general);
+
+          enemies = [general];
+        } else {
+          const ghostArmor = new Enemy(this, 250, 150, 'ghostArmor', null, 'Ghost Armor', 200, 55);
+          this.add.existing(ghostArmor);
+          const general = new Enemy(this, 160, 150, 'general', null, 'General', 250, 60);
+          this.add.existing(general);
+
+          enemies = [ghostArmor, general];
         }
         break;
       default:
