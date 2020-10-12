@@ -13,6 +13,8 @@ class forest extends Phaser.Scene {
   }
 
   create(data) {
+    this.data = data;
+
     const mappy = this.add.tilemap('mapForest');
     const outsideA2Set = mappy.addTilesetImage('Outside_A2');
     const outsideBSet = mappy.addTilesetImage('Outside_B');
@@ -20,10 +22,10 @@ class forest extends Phaser.Scene {
     mappy.createStaticLayer('soil', outsideA2Set, 0, 0).setDepth(-2);
     mappy.createStaticLayer('plants', outsideBSet, 0, 0).setDepth(-1);
     const objectLayer = mappy.createDynamicLayer('objects', outsideBSet, this.tileset, 0, 0).setDepth(1);
-    if (data.values.x === undefined) {
+    if (this.data.values.x === undefined) {
       player = this.physics.add.sprite(480, 400, 'actor');
     } else {
-      player = this.physics.add.sprite(data.values.x, data.values.y, 'actor');
+      player = this.physics.add.sprite(this.data.values.x, this.data.values.y, 'actor');
     }
     objectLayer.setCollisionByProperty({ collides: true });
     this.physics.add.collider(player, objectLayer, null, null, this);
@@ -102,10 +104,10 @@ class forest extends Phaser.Scene {
     this.exit = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
     this.exit.create(552, 24, 48, 48);
     overlapCollider = this.physics.add.collider(player, this.exit, () => {
-      data.values.x = 936;
-      data.values.y = 1174;
+      this.data.values.x = 936;
+      this.data.values.y = 1174;
       this.physics.world.removeCollider(overlapCollider);
-      this.scene.start('world', data);
+      this.scene.start('world', this.data);
     }, false, this);
 
     this.sys.events.on('wake', this.wake, this);

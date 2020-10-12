@@ -18,6 +18,7 @@ class mainMenu extends Phaser.Scene {
   }
 
   startForestScene() {
+    localStorage.clear();
     this.scene.start('forest', this.data);
   }
 
