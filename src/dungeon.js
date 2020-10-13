@@ -110,6 +110,13 @@ class dungeon extends Phaser.Scene {
       this.scene.start('world', data);
     }, false, this);
 
+    this.gameEnd = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
+    this.gameEnd.create(1512, 1082, 48, 48);
+    overlapCollider = this.physics.add.collider(player, this.gameEnd, () => {
+      this.physics.world.removeCollider(overlapCollider);
+      this.scene.start('finalScore');
+    }, false, this);
+
     this.sys.events.on('wake', this.wake, this);
   }
 

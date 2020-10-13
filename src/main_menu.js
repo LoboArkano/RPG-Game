@@ -19,7 +19,7 @@ class mainMenu extends Phaser.Scene {
 
   startForestScene() {
     localStorage.clear();
-    localStorage.setItem('score', JSON.stringify(0));
+    localStorage.setItem('score', JSON.stringify(1));
     this.scene.start('finalScore', this.data);
   }
 

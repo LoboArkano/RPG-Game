@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import leaderboardAPI from './leaderboardAPI';
 
 class finalScore extends Phaser.Scene {
   constructor() {
@@ -25,9 +26,9 @@ class finalScore extends Phaser.Scene {
   }
 
   submitScore() {
-    this.data.values.text = this.inputText.text.trim();
-    this.data.values.score = this.score;
+    this.inputText.text = this.inputText.text.trim();
     if (this.data.values.text !== '') {
+      leaderboardAPI.postScore({ user: this.inputText.text, score: this.score });
       this.scene.start('mainMenu');
     }
   }
