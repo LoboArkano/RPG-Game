@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import menu from './assets/images/title/Book.png';
+import leaderboardBG from './assets/images/title/CrossedSwords.png';
 import block from './assets/images/tileset/block.png';
 import door1 from './assets/images/object/Door1.png';
 import outsideA2 from './assets/images/tileset/Outside_A2.png';
@@ -44,6 +45,7 @@ class mainMenu extends Phaser.Scene {
 
     this.load.plugin('rexinputtextplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexinputtextplugin.min.js', true);
     this.load.image('menu', menu);
+    this.load.image('leaderboardBG', leaderboardBG);
     this.load.image('Block', block);
     this.load.image('Door1', door1);
     this.load.image('Dungeon_A4', dungeonA4);

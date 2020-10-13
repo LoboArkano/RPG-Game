@@ -8,6 +8,7 @@ import temple from './temple';
 import town from './town';
 import world from './world';
 import finalScore from './final_score';
+import leaderboard from './leaderboard';
 
 const game = (() => {
   const config = {
@@ -26,7 +27,7 @@ const game = (() => {
     dom: {
       createContainer: true,
     },
-    scene: [boot, preLoader, mainMenu, dungeon, forest, town, temple, world, finalScore],
+    scene: [boot, preLoader, mainMenu, dungeon, forest, town, temple, world, finalScore, leaderboard],
   };
 
   const rpgGame = new Phaser.Game(config);
