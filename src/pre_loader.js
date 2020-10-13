@@ -42,6 +42,7 @@ class mainMenu extends Phaser.Scene {
   preload() {
     this.image = this.add.image(480, 240, 'loading');
 
+    this.load.plugin('rexinputtextplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexinputtextplugin.min.js', true);
     this.load.image('menu', menu);
     this.load.image('Block', block);
     this.load.image('Door1', door1);

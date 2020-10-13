@@ -19,7 +19,8 @@ class mainMenu extends Phaser.Scene {
 
   startForestScene() {
     localStorage.clear();
-    this.scene.start('forest', this.data);
+    localStorage.setItem('score', JSON.stringify(0));
+    this.scene.start('finalScore', this.data);
   }
 
   startBtnHoverState() {
