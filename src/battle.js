@@ -9,6 +9,8 @@ class battle extends Phaser.Scene {
 
   create(data) {
     this.data = data;
+    this.victory = true;
+    this.gameOver = true;
 
     this.cameras.main.setBackgroundColor('rgba(0, 200, 0, 0.5)');
     this.startBattle();
@@ -63,7 +65,9 @@ class battle extends Phaser.Scene {
       this.events.emit('PlayerSelect', this.index);
     } else { // else if its enemy unit
       // pick random hero
-      rand = Math.floor(Math.random() * this.heroes.length);
+      do {
+        rand = Math.floor(Math.random() * this.heroes.length);
+      } while (!this.heroes[rand].living);
       // call the enemy"s attack function
       this.units[this.index].attack(this.heroes[rand]);
       // add timer for the next turn, so will have smooth gameplay
@@ -72,18 +76,19 @@ class battle extends Phaser.Scene {
   }
 
   checkEndBattle() {
-    let victory = true;
-    let gameOver = true;
+    this.victory = true;
+    this.gameOver = true;
 
     // if all enemies are dead we have victory
     for (let i = 0; i < this.enemies.length; i += 1) {
-      if (this.enemies[i].living) victory = false;
+      if (this.enemies[i].living) this.victory = false;
     }
     // if all heroes are dead we have game over
     for (let i = 0; i < this.heroes.length; i += 1) {
-      if (this.heroes[i].living) gameOver = false;
+      if (this.heroes[i].living) this.gameOver = false;
     }
-    return victory || gameOver;
+
+    return this.victory || this.gameOver;
   }
 
   endBattle() {
@@ -101,9 +106,14 @@ class battle extends Phaser.Scene {
     this.scene.remove('ui');
     this.scene.remove('battle');
 
-    this.updateScore();
-    // return to WorldScene and sleep current BattleScene
-    this.scene.wake(this.data.values.location);
+    if (this.gameOver) {
+      this.scene.stop(this.data.values.location);
+      this.scene.start('finalScore', this.data);
+    } else {
+      this.updateScore();
+      // return to WorldScene and sleep current BattleScene
+      this.scene.wake(this.data.values.location);
+    }
   }
 
   receivePlayerSelection(action, target) {
