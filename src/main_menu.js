@@ -10,7 +10,7 @@ class mainMenu extends Phaser.Scene {
     this.image = this.add.image(480, 240, 'menu');
     this.title = this.add.text(400, 100, 'RPG GAME', this.textStyle);
     this.startBtn = this.add.text(400, 280, 'START', this.textStyle);
-    const controlls = this.add.text(400, 330, 'CONTROLLS', this.textStyle);
+    this.controllsBtn = this.add.text(400, 330, 'CONTROLLS', this.textStyle);
     this.leaderboardBtn = this.add.text(400, 380, 'LEADERBOARD', this.textStyle);
 
     this.startBtn.setInteractive()
@@ -18,6 +18,8 @@ class mainMenu extends Phaser.Scene {
       .on('pointerover', () => this.startBtnHoverState())
       .on('pointerout', () => this.startBtnRestState());
 
+    this.controllsBtn.setInteractive()
+      .on('pointerdown', () => this.startControllsScene());
 
     this.leaderboardBtn.setInteractive()
       .on('pointerdown', () => this.startLeaderboardScene());
@@ -27,6 +29,10 @@ class mainMenu extends Phaser.Scene {
     localStorage.clear();
     localStorage.setItem('score', JSON.stringify(1));
     this.scene.start('finalScore', this.data);
+  }
+
+  startControllsScene() {
+    this.scene.start('controlls');
   }
 
   startLeaderboardScene() {
