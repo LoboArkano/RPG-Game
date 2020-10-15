@@ -18,6 +18,13 @@ module.exports = {
         test: /\.m4a$/,
         loader: 'file-loader',
       },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader',
+        ],
+      },
     ],
   },
 };
