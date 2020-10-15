@@ -23,7 +23,7 @@ class leaderboard extends Phaser.Scene {
     leaderboardAPI.getScore().then(scores => {
       let y = 105;
 
-      scores.sort((a, b) => (b.score - a.score)).slice(0, 10);
+      scores = scores.sort((a, b) => (b.score - a.score)).slice(0, 10);
 
       scores.forEach((score, index) => {
         this.add.text(
