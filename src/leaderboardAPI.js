@@ -1,8 +1,12 @@
+import 'regenerator-runtime/runtime';
+
+const fetch = require('node-fetch');
+
 const leaderboardAPI = (() => {
   const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/wbFk9kL5lA8GJ2kKbrWL/scores/';
 
   const postScore = async (data) => {
-    await fetch(url, {
+    const apiResult = await fetch(url, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
@@ -11,6 +15,8 @@ const leaderboardAPI = (() => {
     })
       .then(response => response.json())
       .then(json => json);
+
+    return apiResult;
   };
 
   const getScore = async () => {
