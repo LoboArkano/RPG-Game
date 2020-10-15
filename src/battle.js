@@ -175,13 +175,13 @@ class battle extends Phaser.Scene {
       case 'world':
         type = Math.floor(Math.random() * 3);
         if (type === 0) {
-          const behemoth = new Enemy(this, 120, 120, 'behemoth', null, 'Behemoth', 150, 40);
+          const behemoth = new Enemy(this, 150, 120, 'behemoth', null, 'Behemoth', 150, 40);
           this.add.existing(behemoth);
           this.data.values.points = 50;
 
           enemies = [behemoth];
         } else if (type === 1) {
-          const minotaur = new Enemy(this, 160, 170, 'minotaur', null, 'Minotaur', 175, 50);
+          const minotaur = new Enemy(this, 160, 130, 'minotaur', null, 'Minotaur', 175, 50);
           this.add.existing(minotaur);
           this.data.values.points = 55;
 
@@ -295,7 +295,7 @@ class battle extends Phaser.Scene {
 
           enemies = [general];
         } else {
-          const ghostArmor = new Enemy(this, 250, 150, 'ghostArmor', null, 'Ghost Armor', 200, 55);
+          const ghostArmor = new Enemy(this, 220, 150, 'ghostArmor', null, 'Ghost Armor', 200, 55);
           this.add.existing(ghostArmor);
           const general = new Enemy(this, 160, 150, 'general', null, 'General', 250, 60);
           this.add.existing(general);
