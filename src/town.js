@@ -105,11 +105,15 @@ class town extends Phaser.Scene {
     overlapCollider = this.physics.add.collider(player, this.exit, () => {
       data.values.x = 696;
       data.values.y = 840;
+      this.music.stop();
       this.physics.world.removeCollider(overlapCollider);
       this.scene.start('world', data);
     }, false, this);
 
     this.sys.events.on('wake', this.wake, this);
+
+    this.music = this.sound.add('Town2', { volumen: 0.8, loop: true });
+    this.music.play();
   }
 
   wake() {
@@ -118,6 +122,7 @@ class town extends Phaser.Scene {
     this.keyboard.S.reset();
     this.keyboard.W.reset();
     this.keyboard.D.reset();
+    this.music.resume();
   }
 
   onMeetEnemy(player, zone) {
@@ -130,6 +135,7 @@ class town extends Phaser.Scene {
       this.data.values.location = 'town';
       // shake the world
       this.cameras.main.flash(200);
+      this.music.pause();
 
       this.scene.add('ui', ui);
       this.scene.add('battle', battle);

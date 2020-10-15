@@ -35,9 +35,13 @@ class leaderboard extends Phaser.Scene {
         y += 30;
       });
     });
+
+    this.music = this.sound.add('Battle2', { volumen: 0.8, loop: true });
+    this.music.play();
   }
 
   startMainMenuScene() {
+    this.music.stop();
     this.scene.start('mainMenu');
   }
 }

@@ -104,6 +104,7 @@ class world extends Phaser.Scene {
     overlapDungeon = this.physics.add.collider(player, this.dungeon, () => {
       data.values.x = 1536;
       data.values.y = 2928;
+      this.music.stop();
       this.physics.world.removeCollider(overlapDungeon);
       this.scene.start('dungeon', data);
     }, false, this);
@@ -113,6 +114,7 @@ class world extends Phaser.Scene {
     overlapForest = this.physics.add.collider(player, this.forest, () => {
       data.values.x = 552;
       data.values.y = 72;
+      this.music.stop();
       this.physics.world.removeCollider(overlapForest);
       this.scene.start('forest', data);
     }, false, this);
@@ -122,6 +124,7 @@ class world extends Phaser.Scene {
     overlapTemple = this.physics.add.collider(player, this.temple, () => {
       data.values.x = 552;
       data.values.y = 1128;
+      this.music.stop();
       this.physics.world.removeCollider(overlapTemple);
       this.scene.start('temple', data);
     }, false, this);
@@ -132,11 +135,15 @@ class world extends Phaser.Scene {
     overlapTown = this.physics.add.collider(player, this.town, () => {
       data.values.x = 552;
       data.values.y = 1350;
+      this.music.stop();
       this.physics.world.removeCollider(overlapTown);
       this.scene.start('town', data);
     }, false, this);
 
     this.sys.events.on('wake', this.wake, this);
+
+    this.music = this.sound.add('Field1', { volumen: 0.8, loop: true });
+    this.music.play();
   }
 
   wake() {
@@ -145,12 +152,12 @@ class world extends Phaser.Scene {
     this.keyboard.S.reset();
     this.keyboard.W.reset();
     this.keyboard.D.reset();
+    this.music.resume();
   }
 
   onMeetEnemy(player, zone) {
     // we move the zone to some other location
     if (!onBattle) {
-      console.log('onmeet');
       onBattle = true;
       this.physics.world.removeCollider(zone);
       zone.x = -48;
@@ -158,6 +165,7 @@ class world extends Phaser.Scene {
       this.data.values.location = 'world';
       // shake the world
       this.cameras.main.flash(200);
+      this.music.pause();
 
       this.scene.add('ui', ui);
       this.scene.add('battle', battle);

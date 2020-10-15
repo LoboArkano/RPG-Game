@@ -103,11 +103,15 @@ class temple extends Phaser.Scene {
     overlapCollider = this.physics.add.collider(player, this.exit, () => {
       data.values.x = 264;
       data.values.y = 552;
+      this.music.stop();
       this.physics.world.removeCollider(overlapCollider);
       this.scene.start('world', data);
     }, false, this);
 
     this.sys.events.on('wake', this.wake, this);
+
+    this.music = this.sound.add('Ship1', { volumen: 0.8, loop: true });
+    this.music.play();
   }
 
   wake() {
@@ -116,6 +120,7 @@ class temple extends Phaser.Scene {
     this.keyboard.S.reset();
     this.keyboard.W.reset();
     this.keyboard.D.reset();
+    this.music.resume();
   }
 
   onMeetEnemy(player, zone) {
@@ -128,6 +133,7 @@ class temple extends Phaser.Scene {
       this.data.values.location = 'temple';
       // shake the world
       this.cameras.main.flash(200);
+      this.music.pause();
 
       this.scene.add('ui', ui);
       this.scene.add('battle', battle);

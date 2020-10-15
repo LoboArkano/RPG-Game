@@ -14,6 +14,10 @@ module.exports = {
           'file-loader',
         ],
       },
+      {
+        test: /\.m4a$/,
+        loader: 'file-loader',
+      },
     ],
   },
 };

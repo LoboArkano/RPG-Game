@@ -106,11 +106,15 @@ class forest extends Phaser.Scene {
     overlapCollider = this.physics.add.collider(player, this.exit, () => {
       this.data.values.x = 936;
       this.data.values.y = 1174;
+      this.music.stop();
       this.physics.world.removeCollider(overlapCollider);
       this.scene.start('world', this.data);
     }, false, this);
 
     this.sys.events.on('wake', this.wake, this);
+
+    this.music = this.sound.add('Town1', { volumen: 0.8, loop: true });
+    this.music.play();
   }
 
   wake() {
@@ -119,6 +123,7 @@ class forest extends Phaser.Scene {
     this.keyboard.S.reset();
     this.keyboard.W.reset();
     this.keyboard.D.reset();
+    this.music.resume();
   }
 
   onMeetEnemy(player, zone) {
@@ -131,6 +136,7 @@ class forest extends Phaser.Scene {
       this.data.values.location = 'forest';
       // shake the world
       this.cameras.main.flash(200);
+      this.music.pause();
 
       this.scene.add('ui', ui);
       this.scene.add('battle', battle);

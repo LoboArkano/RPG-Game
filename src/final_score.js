@@ -26,6 +26,9 @@ class finalScore extends Phaser.Scene {
     // Remove keys from the last scene
     this.lastScene = this.scene.get(data.values.location);
     this.lastScene.input.keyboard.removeCapture('W,S,A,D');
+
+    this.music = this.sound.add('Fanfare2', { volumen: 0.8, loop: false });
+    this.music.play();
   }
 
   submitScore() {

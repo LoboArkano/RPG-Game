@@ -9,8 +9,20 @@ class battle extends Phaser.Scene {
 
   create(data) {
     this.data = data;
+    this.prevScene = this.data.values.location;
     this.victory = true;
     this.gameOver = true;
+
+    if (this.prevScene === 'forest' || this.prevScene === 'world') {
+      this.music = this.sound.add('Battle1', { volumen: 0.8, loop: true });
+      this.music.play();
+    } else if (this.prevScene === 'town' || this.prevScene === 'temple') {
+      this.music = this.sound.add('Battle2', { volumen: 0.8, loop: true });
+      this.music.play();
+    } else {
+      this.music = this.sound.add('Battle3', { volumen: 0.8, loop: true });
+      this.music.play();
+    }
 
     this.cameras.main.setBackgroundColor('rgba(0, 200, 0, 0.5)');
     this.startBattle();
@@ -106,13 +118,15 @@ class battle extends Phaser.Scene {
     this.scene.remove('ui');
     this.scene.remove('battle');
 
+    this.music.stop();
+
     if (this.gameOver) {
-      this.scene.stop(this.data.values.location);
+      this.scene.stop(this.prevScene);
       this.scene.start('finalScore', this.data);
     } else {
       this.updateScore();
       // return to WorldScene and sleep current BattleScene
-      this.scene.wake(this.data.values.location);
+      this.scene.wake(this.prevScene);
     }
   }
 
@@ -127,7 +141,7 @@ class battle extends Phaser.Scene {
     let type;
     let enemies;
 
-    switch (this.data.values.location) {
+    switch (this.prevScene) {
       case 'forest':
         type = Math.floor(Math.random() * 3);
         if (type === 0) {

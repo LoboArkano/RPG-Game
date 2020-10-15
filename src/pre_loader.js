@@ -34,6 +34,16 @@ import ghostArmor from './assets/images/enemies/Ghost_Armor.png';
 import imp from './assets/images/enemies/Imp.png';
 import bat from './assets/images/enemies/Bat.png';
 import general from './assets/images/enemies/General.png';
+import Theme1 from './assets/audio/music/Theme1.m4a';
+import Field1 from './assets/audio/music/Field1.m4a';
+import Ship1 from './assets/audio/music/Ship1.m4a';
+import Battle1 from './assets/audio/music/Battle1.m4a';
+import Battle2 from './assets/audio/music/Battle2.m4a';
+import Battle3 from './assets/audio/music/Battle3.m4a';
+import Town1 from './assets/audio/music/Town1.m4a';
+import Town2 from './assets/audio/music/Town2.m4a';
+import Dungeon2 from './assets/audio/music/Dungeon2.m4a';
+import Defeat1 from './assets/audio/events/Defeat1.m4a';
 
 class mainMenu extends Phaser.Scene {
   constructor() {
@@ -79,6 +89,16 @@ class mainMenu extends Phaser.Scene {
     this.load.image('imp', imp);
     this.load.image('bat', bat);
     this.load.image('general', general);
+    this.load.audio('Theme1', [Theme1]);
+    this.load.audio('Field1', [Field1]);
+    this.load.audio('Ship1', [Ship1]);
+    this.load.audio('Town1', [Town1]);
+    this.load.audio('Town2', [Town2]);
+    this.load.audio('Battle1', [Battle1]);
+    this.load.audio('Battle2', [Battle2]);
+    this.load.audio('Battle3', [Battle3]);
+    this.load.audio('Dungeon2', [Dungeon2]);
+    this.load.audio('Defeat1', [Defeat1]);
   }
 
   create() {

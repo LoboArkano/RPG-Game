@@ -26,9 +26,13 @@ class controlls extends Phaser.Scene {
     this.add.text(240, 230, 'BATTLE MODE', textStyle);
     this.add.text(240, 280, 'SELECT: ARROW KEYS', textStyle);
     this.add.text(240, 330, 'ACTION: SPACE', textStyle);
+
+    this.music = this.sound.add('Ship1', { volumen: 0.8, loop: true });
+    this.music.play();
   }
 
   startMainMenuScene() {
+    this.music.stop();
     this.scene.start('mainMenu');
   }
 }

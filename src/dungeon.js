@@ -105,7 +105,8 @@ class dungeon extends Phaser.Scene {
     this.exit.create(1560, 3000, 48, 48);
     overlapCollider = this.physics.add.collider(player, this.exit, () => {
       data.values.x = 792;
-      data.values.y = 216;
+      data.values.y = 220;
+      this.music.stop();
       this.physics.world.removeCollider(overlapCollider);
       this.scene.start('world', data);
     }, false, this);
@@ -113,11 +114,16 @@ class dungeon extends Phaser.Scene {
     this.gameEnd = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
     this.gameEnd.create(1512, 1082, 48, 48);
     overlapCollider = this.physics.add.collider(player, this.gameEnd, () => {
+      data.values.location = 'dungeon';
+      this.music.stop();
       this.physics.world.removeCollider(overlapCollider);
-      this.scene.start('finalScore');
+      this.scene.start('finalScore', data);
     }, false, this);
 
     this.sys.events.on('wake', this.wake, this);
+
+    this.music = this.sound.add('Dungeon2', { volumen: 1, loop: true });
+    this.music.play();
   }
 
   wake() {
@@ -126,6 +132,7 @@ class dungeon extends Phaser.Scene {
     this.keyboard.S.reset();
     this.keyboard.W.reset();
     this.keyboard.D.reset();
+    this.music.resume();
   }
 
   onMeetEnemy(player, zone) {
@@ -138,6 +145,7 @@ class dungeon extends Phaser.Scene {
       this.data.values.location = 'dungeon';
       // shake the world
       this.cameras.main.flash(200);
+      this.music.pause();
 
       this.scene.add('ui', ui);
       this.scene.add('battle', battle);
