@@ -1,9 +1,13 @@
 body {
+  margin: 0;
+  height: 100vh;
   background-color: rgb(32, 32, 32);
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 #content {
   width: max-content;
+  height: max-content;
 }
