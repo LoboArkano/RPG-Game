@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
 
-class controlls extends Phaser.Scene {
+class controls extends Phaser.Scene {
   constructor() {
-    super({ key: 'controlls' });
+    super({ key: 'controls' });
   }
 
   create() {
@@ -16,9 +16,9 @@ class controlls extends Phaser.Scene {
     this.graphics.fillRect(230, 95, 450, 305);
     this.graphics.strokeRect(231, 96, 450, 305);
 
-    this.add.text(240, 50, 'CONTROLLS', { fontSize: '30px', fill: '#fff' });
-    this.controllsBtn = this.add.text(780, 400, '< BACK', { fontSize: '25px', fill: '#fff' });
-    this.controllsBtn.setInteractive()
+    this.add.text(240, 50, 'HOW TO PLAY', { fontSize: '30px', fill: '#fff' });
+    this.controlsBtn = this.add.text(780, 400, '< BACK', { fontSize: '25px', fill: '#fff' });
+    this.controlsBtn.setInteractive()
       .on('pointerdown', () => this.startMainMenuScene());
 
     this.add.text(240, 110, 'EXPLORE MODE', textStyle);
@@ -37,4 +37,4 @@ class controlls extends Phaser.Scene {
   }
 }
 
-export default controlls;
+export default controls;

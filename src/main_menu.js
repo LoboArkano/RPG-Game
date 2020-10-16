@@ -10,7 +10,7 @@ class mainMenu extends Phaser.Scene {
     this.image = this.add.image(480, 240, 'menu');
     this.title = this.add.text(320, 60, 'AGARTHA RPG', { fontSize: '45px', fill: '#fff' });
     this.startBtn = this.add.text(400, 280, 'START', this.textStyle);
-    this.controllsBtn = this.add.text(400, 330, 'CONTROLLS', this.textStyle);
+    this.controllsBtn = this.add.text(400, 330, 'HOW TO PLAY', this.textStyle);
     this.leaderboardBtn = this.add.text(400, 380, 'LEADERBOARD', this.textStyle);
 
     this.startBtn.setInteractive()
@@ -37,7 +37,7 @@ class mainMenu extends Phaser.Scene {
 
   startControllsScene() {
     this.music.stop();
-    this.scene.start('controlls');
+    this.scene.start('controls');
   }
 
   startLeaderboardScene() {
