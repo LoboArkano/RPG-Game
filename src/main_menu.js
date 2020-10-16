@@ -8,7 +8,7 @@ class mainMenu extends Phaser.Scene {
   create() {
     this.textStyle = { fontSize: '30px', fill: '#fff' };
     this.image = this.add.image(480, 240, 'menu');
-    this.title = this.add.text(400, 100, 'AGARTHA RPG', { fontSize: '35px', fill: '#fff' });
+    this.title = this.add.text(320, 60, 'AGARTHA RPG', { fontSize: '45px', fill: '#fff' });
     this.startBtn = this.add.text(400, 280, 'START', this.textStyle);
     this.controllsBtn = this.add.text(400, 330, 'CONTROLLS', this.textStyle);
     this.leaderboardBtn = this.add.text(400, 380, 'LEADERBOARD', this.textStyle);

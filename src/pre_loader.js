@@ -1,6 +1,11 @@
 import Phaser from 'phaser';
 import menu from './assets/images/title/Book.png';
 import leaderboardBG from './assets/images/title/CrossedSwords.png';
+import grassland from './assets/images/background/Grassland.png';
+import meadow from './assets/images/background/Meadow.png';
+import cobblestones from './assets/images/background/Cobblestones1.png';
+import dirt from './assets/images/background/Dirt2.png';
+import rockCave from './assets/images/background/RockCave.png';
 import block from './assets/images/tileset/block.png';
 import door1 from './assets/images/object/Door1.png';
 import outsideA2 from './assets/images/tileset/Outside_A2.png';
@@ -56,6 +61,11 @@ class mainMenu extends Phaser.Scene {
     this.load.plugin('rexinputtextplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexinputtextplugin.min.js', true);
     this.load.image('menu', menu);
     this.load.image('leaderboardBG', leaderboardBG);
+    this.load.image('grassland', grassland);
+    this.load.image('meadow', meadow);
+    this.load.image('cobblestones', cobblestones);
+    this.load.image('dirt', dirt);
+    this.load.image('rockCave', rockCave);
     this.load.image('Block', block);
     this.load.image('Door1', door1);
     this.load.image('Dungeon_A4', dungeonA4);

@@ -10,6 +10,10 @@ class ui extends Phaser.Scene {
   }
 
   create(data) {
+    this.data = data;
+    this.location = this.data.values.location;
+    this.setBGI();
+
     this.graphics = this.add.graphics();
     this.graphics.lineStyle(1, 0xffffff);
     this.graphics.fillStyle(0x031f4c, 0.8);
@@ -101,6 +105,24 @@ class ui extends Phaser.Scene {
     this.enemiesMenu.deselect();
     this.currentMenu = null;
     this.battleScene.receivePlayerSelection('attack', index);
+  }
+
+  setBGI() {
+    let bgImage;
+
+    if (this.location === 'forest') {
+      bgImage = 'grassland';
+    } else if (this.location === 'town') {
+      bgImage = 'cobblestones';
+    } else if (this.location === 'world') {
+      bgImage = 'meadow';
+    } else if (this.location === 'temple') {
+      bgImage = 'dirt';
+    } else {
+      bgImage = 'rockCave';
+    }
+
+    this.image = this.add.image(480, 240, bgImage);
   }
 }
 

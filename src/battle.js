@@ -13,18 +13,9 @@ class battle extends Phaser.Scene {
     this.victory = true;
     this.gameOver = true;
 
-    if (this.prevScene === 'forest' || this.prevScene === 'world') {
-      this.music = this.sound.add('Battle1', { volumen: 0.8, loop: true });
-      this.music.play();
-    } else if (this.prevScene === 'town' || this.prevScene === 'temple') {
-      this.music = this.sound.add('Battle2', { volumen: 0.8, loop: true });
-      this.music.play();
-    } else {
-      this.music = this.sound.add('Battle3', { volumen: 0.8, loop: true });
-      this.music.play();
-    }
+    // set music
+    this.setBGM();
 
-    this.cameras.main.setBackgroundColor('rgba(0, 200, 0, 0.5)');
     this.startBattle();
     this.sys.events.on('wake', this.startBattle, this);
   }
@@ -54,7 +45,7 @@ class battle extends Phaser.Scene {
     this.units = this.heroes.concat(this.enemies);
 
     this.index = -1; // currently active unit
-    this.scene.launch('ui');
+    this.scene.launch('ui', this.data);
   }
 
   nextTurn() {
@@ -308,6 +299,20 @@ class battle extends Phaser.Scene {
     }
 
     return enemies;
+  }
+
+  setBGM() {
+    let musicName;
+
+    if (this.prevScene === 'forest' || this.prevScene === 'world') {
+      musicName = 'Battle1';
+    } else if (this.prevScene === 'town' || this.prevScene === 'temple') {
+      musicName = 'Battle2';
+    } else {
+      musicName = 'Battle3';
+    }
+    this.music = this.sound.add(musicName, { volumen: 0.8, loop: true });
+    this.music.play();
   }
 
   updateScore() {
