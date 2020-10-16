@@ -286,9 +286,9 @@ class battle extends Phaser.Scene {
 
           enemies = [general];
         } else {
-          const ghostArmor = new Enemy(this, 220, 150, 'ghostArmor', null, 'Ghost Armor', 200, 55);
+          const ghostArmor = new Enemy(this, 220, 190, 'ghostArmor', null, 'Ghost Armor', 200, 55);
           this.add.existing(ghostArmor);
-          const general = new Enemy(this, 160, 150, 'general', null, 'General', 250, 60);
+          const general = new Enemy(this, 160, 120, 'general', null, 'General', 250, 60);
           this.add.existing(general);
           this.data.values.points = 1000;
 

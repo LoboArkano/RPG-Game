@@ -48,6 +48,7 @@ import Battle3 from './assets/audio/music/Battle3.m4a';
 import Town1 from './assets/audio/music/Town1.m4a';
 import Town2 from './assets/audio/music/Town2.m4a';
 import Dungeon2 from './assets/audio/music/Dungeon2.m4a';
+import Fanfare2 from './assets/audio/events/Fanfare2.m4a';
 import Defeat1 from './assets/audio/events/Defeat1.m4a';
 
 class mainMenu extends Phaser.Scene {
@@ -108,6 +109,7 @@ class mainMenu extends Phaser.Scene {
     this.load.audio('Battle2', [Battle2]);
     this.load.audio('Battle3', [Battle3]);
     this.load.audio('Dungeon2', [Dungeon2]);
+    this.load.audio('Fanfare2', [Fanfare2]);
     this.load.audio('Defeat1', [Defeat1]);
   }
 
