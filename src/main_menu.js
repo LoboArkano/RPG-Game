@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import scoreModule from './score';
 
 class mainMenu extends Phaser.Scene {
   constructor() {
@@ -30,8 +31,7 @@ class mainMenu extends Phaser.Scene {
 
   startForestScene() {
     this.music.stop();
-    localStorage.clear();
-    localStorage.setItem('score', JSON.stringify(10));
+    scoreModule.resetScore();
     this.scene.start('forest', this.data);
   }
 

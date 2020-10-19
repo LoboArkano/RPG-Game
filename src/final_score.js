@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import leaderboardAPI from './leaderboardAPI';
+import scoreModule from './score';
 
 class finalScore extends Phaser.Scene {
   constructor() {
@@ -7,7 +8,7 @@ class finalScore extends Phaser.Scene {
   }
 
   create(data) {
-    this.score = JSON.parse(localStorage.getItem('score'));
+    this.score = scoreModule.getScore();
     this.inputText = this.add.rexInputText(315, 300, 150, 35, {
       type: 'text',
       placeholder: 'USERNAME',

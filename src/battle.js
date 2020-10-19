@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import PlayerCharacter from './player';
 import Enemy from './enemy';
+import scoreModule from './score';
 
 class battle extends Phaser.Scene {
   constructor() {
@@ -115,7 +116,7 @@ class battle extends Phaser.Scene {
       this.scene.stop(this.prevScene);
       this.scene.start('finalScore', this.data);
     } else {
-      this.updateScore();
+      scoreModule.updateScore(this.data.values.points);
       // return to WorldScene and sleep current BattleScene
       this.scene.wake(this.prevScene);
     }
@@ -313,13 +314,6 @@ class battle extends Phaser.Scene {
     }
     this.music = this.sound.add(musicName, { volumen: 0.8, loop: true });
     this.music.play();
-  }
-
-  updateScore() {
-    let score = JSON.parse(localStorage.getItem('score'));
-
-    score += this.data.values.points;
-    localStorage.setItem('score', JSON.stringify(score));
   }
 }
 
