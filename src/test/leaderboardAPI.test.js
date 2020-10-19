@@ -27,3 +27,9 @@ test('Post invalid score 0', () => {
     expect(answer.result).toBe(undefined);
   });
 });
+
+test('Post invalid score -100', () => {
+  leaderboardAPI.postScore({ user: 'jestTest', score: -100 }).then(answer => {
+    expect(answer.result).toBe(undefined);
+  });
+});
