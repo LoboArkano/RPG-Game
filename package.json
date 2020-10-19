@@ -1,0 +1,47 @@
+{
+  "name": "rpg-game",
+  "version": "1.0.0",
+  "description": "RPG videogame build it with Phaser 3",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "test": "jest --detectOpenHandles"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LoboArkano/RPG-Game.git"
+  },
+  "keywords": [
+    "rpg"
+  ],
+  "author": "Roberto Perez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LoboArkano/RPG-Game/issues"
+  },
+  "homepage": "https://github.com/LoboArkano/RPG-Game#readme",
+  "devDependencies": {
+    "@babel/core": "^7.12.0",
+    "@babel/preset-env": "^7.12.0",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^5.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "file-loader": "^6.1.0",
+    "jest": "^26.5.3",
+    "style-loader": "^2.0.0",
+    "stylelint": "^13.3.3",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-csstree-validator": "^1.8.0",
+    "stylelint-scss": "^3.17.2",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.1",
+    "phaser": "^3.24.1",
+    "regenerator-runtime": "^0.13.7"
+  }
+}
