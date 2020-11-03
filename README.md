@@ -8,6 +8,9 @@ Agartha RPG is a turn based RPG videogame.
 
 ![image](https://user-images.githubusercontent.com/33432289/96307655-981edc80-0fc7-11eb-82a6-659c923347e9.png)
 
+## Live Demo
+
+[Live version](https://agartha-rpg.netlify.app/)
 
 ## About the game
 
@@ -31,9 +34,19 @@ Maps were created using Tiled with the RPG MAKER MV tiles. Some tiles have the c
 
 - Tiled
 
-## Live Demo
+## Future Features
 
-[Live version](https://agartha-rpg.netlify.app/)
+- Add a player's menu
+
+- Implement an inventory system
+
+- Improve the battle system with different types of attacks
+
+- Add attack animations
+
+- Add dialogues
+
+- Add NPCs
 
 ## Getting Started
 
@@ -65,8 +78,8 @@ Save a change with:
 ### Usage
 
 The objective of the game is to find the dungeon on the world map and reach the exit.
-On your way you will fight against different enemies. The strongest enemies give you more points.
-This are the controls of the game:
+On your way, you will fight against different enemies. The strongest enemies give you more points.
+This is the controls of the game:
 
 ![image](https://user-images.githubusercontent.com/33432289/96310632-5ee96b00-0fcd-11eb-8d78-d98c97b72213.png)
 
